@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A084303BCC86A01ED608F63F /* Pods_GuruLukshmi_Kiosk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F288E8A88AC7FAC8E8879AD9 /* Pods_GuruLukshmi_Kiosk.framework */; };
 		A1DA932125180FFA00E5A77B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DA932025180FFA00E5A77B /* AppDelegate.swift */; };
 		A1DA932325180FFA00E5A77B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DA932225180FFA00E5A77B /* SceneDelegate.swift */; };
 		A1DA932525180FFA00E5A77B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DA932425180FFA00E5A77B /* ContentView.swift */; };
@@ -14,9 +15,12 @@
 		A1DA932A25180FFD00E5A77B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1DA932925180FFD00E5A77B /* Assets.xcassets */; };
 		A1DA932D25180FFD00E5A77B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1DA932C25180FFD00E5A77B /* Preview Assets.xcassets */; };
 		A1DA933025180FFD00E5A77B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A1DA932E25180FFD00E5A77B /* LaunchScreen.storyboard */; };
+		A1DA93392518108700E5A77B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A1DA93382518108700E5A77B /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		07DE616F2C3083B3E81723F6 /* Pods-GuruLukshmi_Kiosk.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GuruLukshmi_Kiosk.release.xcconfig"; path = "Target Support Files/Pods-GuruLukshmi_Kiosk/Pods-GuruLukshmi_Kiosk.release.xcconfig"; sourceTree = "<group>"; };
+		313E56BA8273CB91BD553D81 /* Pods-GuruLukshmi_Kiosk.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GuruLukshmi_Kiosk.debug.xcconfig"; path = "Target Support Files/Pods-GuruLukshmi_Kiosk/Pods-GuruLukshmi_Kiosk.debug.xcconfig"; sourceTree = "<group>"; };
 		A1DA931D25180FFA00E5A77B /* GuruLukshmi_Kiosk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GuruLukshmi_Kiosk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1DA932025180FFA00E5A77B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A1DA932225180FFA00E5A77B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -26,6 +30,8 @@
 		A1DA932C25180FFD00E5A77B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		A1DA932F25180FFD00E5A77B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A1DA933125180FFD00E5A77B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A1DA93382518108700E5A77B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		F288E8A88AC7FAC8E8879AD9 /* Pods_GuruLukshmi_Kiosk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GuruLukshmi_Kiosk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +39,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A084303BCC86A01ED608F63F /* Pods_GuruLukshmi_Kiosk.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -44,6 +51,8 @@
 			children = (
 				A1DA931F25180FFA00E5A77B /* GuruLukshmi_Kiosk */,
 				A1DA931E25180FFA00E5A77B /* Products */,
+				A891DB7EB3974623E8E236FF /* Pods */,
+				B80B42991E50F9AA58033ED6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -64,6 +73,7 @@
 				A1DA932925180FFD00E5A77B /* Assets.xcassets */,
 				A1DA932E25180FFD00E5A77B /* LaunchScreen.storyboard */,
 				A1DA933125180FFD00E5A77B /* Info.plist */,
+				A1DA93382518108700E5A77B /* GoogleService-Info.plist */,
 				A1DA932625180FFA00E5A77B /* GuruLukshmi_Kiosk.xcdatamodeld */,
 				A1DA932B25180FFD00E5A77B /* Preview Content */,
 			);
@@ -78,6 +88,23 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
+		A891DB7EB3974623E8E236FF /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				313E56BA8273CB91BD553D81 /* Pods-GuruLukshmi_Kiosk.debug.xcconfig */,
+				07DE616F2C3083B3E81723F6 /* Pods-GuruLukshmi_Kiosk.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		B80B42991E50F9AA58033ED6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F288E8A88AC7FAC8E8879AD9 /* Pods_GuruLukshmi_Kiosk.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -85,9 +112,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A1DA933425180FFD00E5A77B /* Build configuration list for PBXNativeTarget "GuruLukshmi_Kiosk" */;
 			buildPhases = (
+				0E3B12C6614B60EE83F67C89 /* [CP] Check Pods Manifest.lock */,
 				A1DA931925180FFA00E5A77B /* Sources */,
 				A1DA931A25180FFA00E5A77B /* Frameworks */,
 				A1DA931B25180FFA00E5A77B /* Resources */,
+				0758433D7C0B62571CAD69E8 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -136,12 +165,55 @@
 			buildActionMask = 2147483647;
 			files = (
 				A1DA933025180FFD00E5A77B /* LaunchScreen.storyboard in Resources */,
+				A1DA93392518108700E5A77B /* GoogleService-Info.plist in Resources */,
 				A1DA932D25180FFD00E5A77B /* Preview Assets.xcassets in Resources */,
 				A1DA932A25180FFD00E5A77B /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0758433D7C0B62571CAD69E8 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-GuruLukshmi_Kiosk/Pods-GuruLukshmi_Kiosk-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-GuruLukshmi_Kiosk/Pods-GuruLukshmi_Kiosk-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GuruLukshmi_Kiosk/Pods-GuruLukshmi_Kiosk-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		0E3B12C6614B60EE83F67C89 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-GuruLukshmi_Kiosk-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		A1DA931925180FFA00E5A77B /* Sources */ = {
@@ -287,6 +359,7 @@
 		};
 		A1DA933525180FFD00E5A77B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 313E56BA8273CB91BD553D81 /* Pods-GuruLukshmi_Kiosk.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -302,12 +375,13 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "Dhruvil.GuruLukshmi-Kiosk";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
 		};
 		A1DA933625180FFD00E5A77B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 07DE616F2C3083B3E81723F6 /* Pods-GuruLukshmi_Kiosk.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -323,7 +397,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "Dhruvil.GuruLukshmi-Kiosk";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;
 		};
