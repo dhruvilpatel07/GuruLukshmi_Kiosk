@@ -15,6 +15,7 @@ struct Orders: Codable, Identifiable, Hashable {
     var cName: String = "Dhruvil Patel"
     var foodName: String
     var foodQuantity: Int
+    var foodRefrence: Food?
     @ServerTimestamp var orderedTime: Timestamp?
     
 }

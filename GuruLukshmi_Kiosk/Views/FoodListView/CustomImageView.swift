@@ -18,15 +18,15 @@ struct CustomImageView: View {
                 .cornerRadius(10)
                 .frame(width: 240, height: 240)
                 .overlay(
-                    Text("$8.50").foregroundColor(.white).font(.largeTitle)
-                        .padding()
-                        .padding()
-                        .clipShape(Circle())
+                    Circle()
+                        .fill(Color.green)
+                        .opacity(0.7)
+                        .frame(width: 100, height: 100)
                         .overlay(
-                            Circle()
-                                .stroke(Color.green, lineWidth: 6)
+                            Text("$8.50").foregroundColor(.white).font(.system(size: 28, weight: Font.Weight.heavy, design: Font.Design.rounded))
                         )
                         .offset(x: 120, y: -120)
+
                 )
                 .overlay(
                     Text(food.foodName).foregroundColor(.white).font(.largeTitle).multilineTextAlignment(.center)

@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct FoodListByCategory: View {
+    // MARK: - Variables and Properties 
     @EnvironmentObject var enviromentObj : GlobalVariables
-
     let columns = [
        GridItem(.adaptive(minimum: 230))
     ]
@@ -45,13 +45,40 @@ struct FoodListByCategory: View {
                     }.padding(.top, 80).frame(width: 680)
                     
                     VStack {
-                        Text("Cart").font(.largeTitle)
-                            .foregroundColor(.white)
-                            .padding(.top, 30)
+                        HStack {
+                            Text("Your order").font(.system(size: 20, weight: Font.Weight.medium, design: Font.Design.rounded))
+                                .foregroundColor(.white)
+                                
+                            Spacer()
+                            
+                            Text("Edit").font(.system(size: 20, weight: Font.Weight.light, design: Font.Design.rounded))
+                                .foregroundColor(.white)
+                                .padding(.trailing)
+                            
+                        }.padding(.top, 80)
+                        .padding(.horizontal)
+
                         
                         ForEach(self.enviromentObj.foodInCart, id: \.self) { order in
-                            Text(order.foodName).foregroundColor(.white).font(.largeTitle).bold()
-                            Text("Quantity: \(order.foodQuantity)").foregroundColor(.white).font(.headline)
+                            HStack(alignment: .center, spacing: 25.0) {
+                                Image(order.foodRefrence!.categoryImgName).resizable()
+                                    .frame(width: 60, height: 60)
+                                    .cornerRadius(10)
+                                //Spacer()
+                                Text("X  \(order.foodQuantity)").foregroundColor(.white)
+                                    .font(.system(size: 20, weight: Font.Weight.bold, design: Font.Design.rounded))
+                                
+                                VStack(spacing: 5.0){
+                                    Text(order.foodName).foregroundColor(.gray).font(.system(size: 20, weight: Font.Weight.medium, design: Font.Design.rounded))
+                                        .multilineTextAlignment(.center)
+                                    Text("$8.50").foregroundColor(.white).font(.system(size: 15, weight: Font.Weight.medium, design: Font.Design.rounded))
+                                
+                                }.frame(width: 130)
+                                
+                                Image(systemName: "trash").foregroundColor(.red)
+                                //Spacer()
+                            }
+                            
                             
                         }
                         .padding(.top)
@@ -69,12 +96,14 @@ struct FoodListByCategory: View {
                             }
                         }){
                             Text("Place Order").foregroundColor(.black).font(.largeTitle).padding()
-                                .background(Color.gray)
-                        }.alert(isPresented: $showAlert){
+                                .background(Color.green.opacity(0.9)).cornerRadius(20).shadow(color: .white, radius: 10)
+                                
+                        }
+                        .alert(isPresented: $showAlert){
                             Alert(title: Text("Cart is Empty"), dismissButton: .default(Text("OK")))
                         }
                         .padding(.bottom, 30)
-                    }.frame(width: 300)
+                    }.frame(width: 350)
                     //.edgesIgnoringSafeArea(.all)
                     .background(Color.newAddToCartColot.opacity(0.1))
                     //Spacer()

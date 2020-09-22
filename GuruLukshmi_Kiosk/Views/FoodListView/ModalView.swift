@@ -14,7 +14,6 @@ struct ModalView: View {
     @State var counter = 1
     let fade =  Gradient(colors: [.clear ,Color.black, Color.clear])
     @EnvironmentObject var enviromentObj: GlobalVariables
-    @State var isFavourite: Bool = false
     @State var additionalDetail = ""
     var itemStringArray = ["item", "items"]
     @State var itemString = "item"
@@ -26,24 +25,26 @@ struct ModalView: View {
             
             Color.newSecondaryColor.edgesIgnoringSafeArea(.all)
             VStack {
-                Image(enviromentObj.food.categoryImgName).resizable()
-                    .frame(width: UIScreen.main.bounds.size.width ,height: 250)
+                Image(self.enviromentObj.food.imgName).resizable()
+                    .frame(width: UIScreen.main.bounds.size.width ,height: 450)
                     .mask(LinearGradient(gradient: fade, startPoint: .top, endPoint: .bottom))
                 
-                Text(enviromentObj.food.foodName)
-                    .font(.largeTitle)
+                Text(self.enviromentObj.food.foodName)
+                    .font(.system(size: 60, weight: Font.Weight.bold, design: Font.Design.rounded))
                     .foregroundColor(.newPrimaryColor)
-                .offset(x: 0, y: -30)
+                .offset(x: 0, y: -70)
                    .padding()
                 
-                Text(enviromentObj.food.foodDescription)
+                Text(self.enviromentObj.food.foodDescription)
                     .foregroundColor(.gray)
-                    .font(.caption)
+                    .font(.system(size: 20))
                     .padding(.horizontal)
-                    .offset(x: 0, y: -30)
+                    .frame(width: 600)
+                    .multilineTextAlignment(.center)
+                    .offset(x: 0, y: -60)
 
                 MultiLineTextField(txt: $additionalDetail).cornerRadius(10).padding()
-                    .frame(width: 380, height: 150)
+                    .frame(width: 600, height: 150)
                     
 
                 // MARK: - Quantity and counter func
@@ -75,13 +76,14 @@ struct ModalView: View {
                 Spacer()
                 // MARK: - Add to cart button
                 Button(action: {
-                    self.enviromentObj.foodInCart.append(Orders(foodName: enviromentObj.food.foodName, foodQuantity: self.counter))
-                    print(Orders(foodName: enviromentObj.food.foodName, foodQuantity: self.counter))
-                    for food in enviromentObj.foodInCart{
+                    
+                    self.enviromentObj.foodInCart.append(Orders(foodName: enviromentObj.food.foodName, foodQuantity: self.counter, foodRefrence: self.enviromentObj.food)) //Change me if needed
+                    print(Orders(foodName: self.enviromentObj.food.foodName, foodQuantity: self.counter))//For Debug Purpose
+                    
+                    for food in self.enviromentObj.foodInCart{
                         print("IN CART: - \(food)")
                     }
                     self.showModal.toggle()
-                    // prints order for debug purpose
  
                 }) {
                     HStack {
@@ -93,22 +95,15 @@ struct ModalView: View {
                            .font(.title)
                     }
                 }.buttonStyle(GradientBackgroundStyle())
+                .frame(width: 600)
                 Spacer()
                 
-            }.overlay(
-                Image(systemName: self.isFavourite ? "heart.fill" : "heart").onTapGesture {
-                    self.isFavourite.toggle()
-                }
-                    .font(.largeTitle)
-                .foregroundColor(self.isFavourite ? .red : .white)
-                .offset(x: 160, y: -350)
-            )
+            }
         }.onTapGesture {
             self.hideKeyboard()
         }
         .onAppear {
-            print("In Side Modal :\(enviromentObj.food.foodName)")
-            self.isFavourite = self.enviromentObj.food.favourite
+            print("In Side Modal :\(enviromentObj.food.foodName)") //For Debug Purpose
         }
     }
 }
