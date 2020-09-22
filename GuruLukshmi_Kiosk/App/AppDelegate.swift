@@ -8,6 +8,7 @@
 import UIKit
 import CoreData
 import Firebase
+import SwiftUI
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -78,5 +79,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
 
+}
+
+//Created extention to access those color easily in any Views
+extension Color{
+    static let newPrimaryColor = Color("primaryColor")
+    static let newSecondaryColor = Color("secondaryColor")
+    static let newAddToCartColot = Color("settingListColor")
 }
 
