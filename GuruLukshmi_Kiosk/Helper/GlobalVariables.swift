@@ -9,5 +9,5 @@ import Foundation
 
 class GlobalVariables: ObservableObject {
     @Published var food = testData[0]
-    @Published var foodInCart = [Orders]()
+    @Published var foodInCart = [ListOfOrder]()
 }

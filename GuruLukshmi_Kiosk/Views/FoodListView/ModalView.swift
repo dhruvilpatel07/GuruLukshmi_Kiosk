@@ -77,8 +77,8 @@ struct ModalView: View {
                 // MARK: - Add to cart button
                 Button(action: {
                     
-                    self.enviromentObj.foodInCart.append(Orders(foodName: enviromentObj.food.foodName, foodQuantity: self.counter, foodRefrence: self.enviromentObj.food)) //Change me if needed
-                    print(Orders(foodName: self.enviromentObj.food.foodName, foodQuantity: self.counter))//For Debug Purpose
+                    //Appending the each oreder in side of globalVariables foodInCart array
+                    self.enviromentObj.foodInCart.append(ListOfOrder(foodRefrence: self.enviromentObj.food, foodQuantity: self.counter))
                     
                     for food in self.enviromentObj.foodInCart{
                         print("IN CART: - \(food)")

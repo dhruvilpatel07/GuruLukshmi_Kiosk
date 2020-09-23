@@ -10,12 +10,14 @@ import Combine
 import FirebaseFirestore
 import FirebaseFirestoreSwift
 
+//This will be the main Order strcuture which will be addded to database
 struct Orders: Codable, Identifiable, Hashable {
     @DocumentID var id: String?
     var cName: String = "Dhruvil Patel"
-    var foodName: String
-    var foodQuantity: Int
-    var foodRefrence: Food?
+    //var foodName: String
+    //var foodQuantity: Int
+    //var foodRefrence: Food?
+    var listOfOrder = [ListOfOrder]()
     @ServerTimestamp var orderedTime: Timestamp?
     
 }

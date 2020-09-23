@@ -19,10 +19,13 @@ struct FoodListByCategory: View {
     @State var tempFood : Food = testData[0]
     @State private var showModal = false
     @State private var showAlert = false
+    @State var arrayOfListOfOrder = [ListOfOrder]()
+    @State var index = 0
     var body: some View {
         VStack {
             HStack {
                     Spacer()
+                // MARK: = Displaying Foods in 2 Rows
                     ScrollView {
                          LazyVGrid(columns: columns, spacing: 80) {
                              ForEach(foodList, id: \.self) { food in
@@ -44,6 +47,7 @@ struct FoodListByCategory: View {
                          .padding(.leading, -20)
                     }.padding(.top, 80).frame(width: 680)
                     
+                // MARK: - Cart Section
                     VStack {
                         HStack {
                             Text("Your order").font(.system(size: 20, weight: Font.Weight.medium, design: Font.Design.rounded))
@@ -58,10 +62,10 @@ struct FoodListByCategory: View {
                         }.padding(.top, 80)
                         .padding(.horizontal)
 
-                        
+                        // Fetching the order from enviromental objects
                         ForEach(self.enviromentObj.foodInCart, id: \.self) { order in
                             HStack(alignment: .center, spacing: 25.0) {
-                                Image(order.foodRefrence!.categoryImgName).resizable()
+                                Image(order.foodRefrence.categoryImgName).resizable()
                                     .frame(width: 60, height: 60)
                                     .cornerRadius(10)
                                 //Spacer()
@@ -69,26 +73,40 @@ struct FoodListByCategory: View {
                                     .font(.system(size: 20, weight: Font.Weight.bold, design: Font.Design.rounded))
                                 
                                 VStack(spacing: 5.0){
-                                    Text(order.foodName).foregroundColor(.gray).font(.system(size: 20, weight: Font.Weight.medium, design: Font.Design.rounded))
+                                    Text(order.foodRefrence.foodName).foregroundColor(.gray).font(.system(size: 20, weight: Font.Weight.medium, design: Font.Design.rounded))
                                         .multilineTextAlignment(.center)
                                     Text("$8.50").foregroundColor(.white).font(.system(size: 15, weight: Font.Weight.medium, design: Font.Design.rounded))
                                 
                                 }.frame(width: 130)
                                 
                                 Image(systemName: "trash").foregroundColor(.red)
-                                //Spacer()
+                                    .onTapGesture {
+                                        //Find the first occurance of object in array and returns its index
+                                        self.index = self.enviromentObj.foodInCart.firstIndex(where: {$0 == order})!
+                                        enviromentObj.foodInCart.remove(at: self.index)
+                                    }
+
                             }
+                            
                             
                             
                         }
                         .padding(.top)
                         Spacer()
                         Button(action: {
+                            
+                            //Placing order and adding the order in firebase database
                             if self.enviromentObj.foodInCart.count > 0{
                                 
                                 for order in self.enviromentObj.foodInCart{
-                                    self.db.addOrders(order)
+                                    arrayOfListOfOrder.append(order)
                                 }
+                                //Setting up the array of order and adding it to database
+                                var dummyOrder = Orders()
+                                dummyOrder.listOfOrder = self.arrayOfListOfOrder
+                                self.db.addOrders(dummyOrder)
+                                
+                                //Clearing out the cart after the order has been placed
                                 self.enviromentObj.foodInCart.removeAll()
                                 print("Successfully added to database")
                             }else{
@@ -113,15 +131,6 @@ struct FoodListByCategory: View {
         .padding(.top)
         .background(Color.newSecondaryColor)
         .edgesIgnoringSafeArea(.all)
-       /* ScrollView {
-            LazyVGrid(columns: columns, spacing: 20) {
-                ForEach(foodList, id: \.self) { food in
-                    Image(food.categoryImgName).resizable()
-                        .frame(width: 200, height: 200)
-                }
-            }
-            .padding(.horizontal)
-        }*/
     }
 }
 

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A084303BCC86A01ED608F63F /* Pods_GuruLukshmi_Kiosk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F288E8A88AC7FAC8E8879AD9 /* Pods_GuruLukshmi_Kiosk.framework */; };
+		A13ADBD8251B15A3002619B9 /* ListOfOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13ADBD7251B15A3002619B9 /* ListOfOrder.swift */; };
 		A1DA932125180FFA00E5A77B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DA932025180FFA00E5A77B /* AppDelegate.swift */; };
 		A1DA932325180FFA00E5A77B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DA932225180FFA00E5A77B /* SceneDelegate.swift */; };
 		A1DA932525180FFA00E5A77B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DA932425180FFA00E5A77B /* ContentView.swift */; };
@@ -30,6 +31,7 @@
 /* Begin PBXFileReference section */
 		07DE616F2C3083B3E81723F6 /* Pods-GuruLukshmi_Kiosk.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GuruLukshmi_Kiosk.release.xcconfig"; path = "Target Support Files/Pods-GuruLukshmi_Kiosk/Pods-GuruLukshmi_Kiosk.release.xcconfig"; sourceTree = "<group>"; };
 		313E56BA8273CB91BD553D81 /* Pods-GuruLukshmi_Kiosk.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GuruLukshmi_Kiosk.debug.xcconfig"; path = "Target Support Files/Pods-GuruLukshmi_Kiosk/Pods-GuruLukshmi_Kiosk.debug.xcconfig"; sourceTree = "<group>"; };
+		A13ADBD7251B15A3002619B9 /* ListOfOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfOrder.swift; sourceTree = "<group>"; };
 		A1DA931D25180FFA00E5A77B /* GuruLukshmi_Kiosk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GuruLukshmi_Kiosk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1DA932025180FFA00E5A77B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A1DA932225180FFA00E5A77B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -148,6 +150,7 @@
 				A1DA93622519242B00E5A77B /* Food.swift */,
 				A1DA93612519242B00E5A77B /* FoodCategory.swift */,
 				A1DA937B251977A700E5A77B /* Orders.swift */,
+				A13ADBD7251B15A3002619B9 /* ListOfOrder.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -314,6 +317,7 @@
 				A1DA937525194D2900E5A77B /* ModalView.swift in Sources */,
 				A1DA9369251929A000E5A77B /* CustomeSideBarView.swift in Sources */,
 				A1DA93642519242B00E5A77B /* Food.swift in Sources */,
+				A13ADBD8251B15A3002619B9 /* ListOfOrder.swift in Sources */,
 				A1DA932125180FFA00E5A77B /* AppDelegate.swift in Sources */,
 				A1DA93632519242B00E5A77B /* FoodCategory.swift in Sources */,
 				A1DA936E251930FF00E5A77B /* FoodListByCategory.swift in Sources */,
