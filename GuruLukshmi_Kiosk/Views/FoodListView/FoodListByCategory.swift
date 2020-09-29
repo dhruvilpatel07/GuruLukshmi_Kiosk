@@ -29,7 +29,7 @@ struct FoodListByCategory: View {
                     ScrollView {
                          LazyVGrid(columns: columns, spacing: 80) {
                              ForEach(foodList, id: \.self) { food in
-                                if self.category.foodType == food.foodType.rawValue{
+                                if self.category.foodType == food.foodType.foodType{
                                     CustomImageView(food: food)
                                     .onTapGesture {
                                             self.showModal.toggle()
@@ -65,7 +65,7 @@ struct FoodListByCategory: View {
                         // Fetching the order from enviromental objects
                         ForEach(self.enviromentObj.foodInCart, id: \.self) { order in
                             HStack(alignment: .center, spacing: 25.0) {
-                                Image(order.foodRefrence.categoryImgName).resizable()
+                                Image(order.foodRefrence.foodType.categoryImage).resizable()
                                     .frame(width: 60, height: 60)
                                     .cornerRadius(10)
                                 //Spacer()
@@ -85,11 +85,7 @@ struct FoodListByCategory: View {
                                         self.index = self.enviromentObj.foodInCart.firstIndex(where: {$0 == order})!
                                         enviromentObj.foodInCart.remove(at: self.index)
                                     }
-
                             }
-                            
-                            
-                            
                         }
                         .padding(.top)
                         Spacer()

@@ -7,12 +7,13 @@
 //
 
 import SwiftUI
+import SceneKit
 
 struct ModalView: View {
     // MARK: - Properties and Variables
     @Binding var showModal: Bool
     @State var counter = 1
-    let fade =  Gradient(colors: [.clear ,Color.black, Color.clear])
+    let fade = Gradient(colors: [.clear ,Color.black, Color.clear])
     @EnvironmentObject var enviromentObj: GlobalVariables
     @State var additionalDetail = ""
     var itemStringArray = ["item", "items"]
@@ -28,11 +29,14 @@ struct ModalView: View {
                 Image(self.enviromentObj.food.imgName).resizable()
                     .frame(width: UIScreen.main.bounds.size.width ,height: 450)
                     .mask(LinearGradient(gradient: fade, startPoint: .top, endPoint: .bottom))
+                //SceneView(scene: SCNScene(named: "DosaARModel.usdz"), options: [ .autoenablesDefaultLighting, .allowsCameraControl])
+                  //  .frame(width: UIScreen.main.bounds.size.width ,height: 480)
+                    //.mask(LinearGradient(gradient: fade, startPoint: .top, endPoint: .bottom))
                 
                 Text(self.enviromentObj.food.foodName)
                     .font(.system(size: 60, weight: Font.Weight.bold, design: Font.Design.rounded))
                     .foregroundColor(.newPrimaryColor)
-                .offset(x: 0, y: -70)
+                .offset(x: 0, y: -20)
                    .padding()
                 
                 Text(self.enviromentObj.food.foodDescription)
@@ -41,7 +45,7 @@ struct ModalView: View {
                     .padding(.horizontal)
                     .frame(width: 600)
                     .multilineTextAlignment(.center)
-                    .offset(x: 0, y: -60)
+                    .offset(x: 0, y: -40)
 
                 MultiLineTextField(txt: $additionalDetail).cornerRadius(10).padding()
                     .frame(width: 600, height: 150)

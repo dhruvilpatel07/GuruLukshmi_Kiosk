@@ -13,7 +13,7 @@ struct CustomImageView: View {
     var body: some View {
         ZStack{
             Color.newSecondaryColor
-            Image(food.categoryImgName).resizable()
+            Image(food.foodType.categoryImage).resizable()
                 .mask(LinearGradient(gradient: fade, startPoint: .top, endPoint: .bottom))
                 .cornerRadius(10)
                 .frame(width: 240, height: 240)

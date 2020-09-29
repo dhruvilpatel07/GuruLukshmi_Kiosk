@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		A084303BCC86A01ED608F63F /* Pods_GuruLukshmi_Kiosk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F288E8A88AC7FAC8E8879AD9 /* Pods_GuruLukshmi_Kiosk.framework */; };
 		A13ADBD8251B15A3002619B9 /* ListOfOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13ADBD7251B15A3002619B9 /* ListOfOrder.swift */; };
+		A13ADBDB25216083002619B9 /* DosaARModel.usdz in Resources */ = {isa = PBXBuildFile; fileRef = A13ADBDA25216083002619B9 /* DosaARModel.usdz */; };
 		A1DA932125180FFA00E5A77B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DA932025180FFA00E5A77B /* AppDelegate.swift */; };
 		A1DA932325180FFA00E5A77B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DA932225180FFA00E5A77B /* SceneDelegate.swift */; };
 		A1DA932525180FFA00E5A77B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DA932425180FFA00E5A77B /* ContentView.swift */; };
@@ -32,6 +33,7 @@
 		07DE616F2C3083B3E81723F6 /* Pods-GuruLukshmi_Kiosk.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GuruLukshmi_Kiosk.release.xcconfig"; path = "Target Support Files/Pods-GuruLukshmi_Kiosk/Pods-GuruLukshmi_Kiosk.release.xcconfig"; sourceTree = "<group>"; };
 		313E56BA8273CB91BD553D81 /* Pods-GuruLukshmi_Kiosk.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GuruLukshmi_Kiosk.debug.xcconfig"; path = "Target Support Files/Pods-GuruLukshmi_Kiosk/Pods-GuruLukshmi_Kiosk.debug.xcconfig"; sourceTree = "<group>"; };
 		A13ADBD7251B15A3002619B9 /* ListOfOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfOrder.swift; sourceTree = "<group>"; };
+		A13ADBDA25216083002619B9 /* DosaARModel.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = DosaARModel.usdz; sourceTree = "<group>"; };
 		A1DA931D25180FFA00E5A77B /* GuruLukshmi_Kiosk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GuruLukshmi_Kiosk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1DA932025180FFA00E5A77B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A1DA932225180FFA00E5A77B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -69,6 +71,7 @@
 		A1DA931425180FFA00E5A77B = {
 			isa = PBXGroup;
 			children = (
+				A13ADBDA25216083002619B9 /* DosaARModel.usdz */,
 				A1DA931F25180FFA00E5A77B /* GuruLukshmi_Kiosk */,
 				A1DA931E25180FFA00E5A77B /* Products */,
 				A891DB7EB3974623E8E236FF /* Pods */,
@@ -258,6 +261,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A13ADBDB25216083002619B9 /* DosaARModel.usdz in Resources */,
 				A1DA933025180FFD00E5A77B /* LaunchScreen.storyboard in Resources */,
 				A1DA93392518108700E5A77B /* GoogleService-Info.plist in Resources */,
 				A1DA932D25180FFD00E5A77B /* Preview Assets.xcassets in Resources */,
