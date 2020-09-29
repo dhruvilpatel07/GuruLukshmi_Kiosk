@@ -21,6 +21,7 @@ struct FoodListByCategory: View {
     @State private var showAlert = false
     @State var arrayOfListOfOrder = [ListOfOrder]()
     @State var index = 0
+    //@State var indexAddMoreFood = 0
     var body: some View {
         VStack {
             HStack {
@@ -54,13 +55,11 @@ struct FoodListByCategory: View {
                                 .foregroundColor(.white)
                                 
                             Spacer()
-                            
-                            Text("Edit").font(.system(size: 20, weight: Font.Weight.light, design: Font.Design.rounded))
-                                .foregroundColor(.white)
-                                .padding(.trailing)
-                            
+
                         }.padding(.top, 80)
                         .padding(.horizontal)
+                        
+                       
 
                         // Fetching the order from enviromental objects
                         ForEach(self.enviromentObj.foodInCart, id: \.self) { order in
@@ -69,8 +68,37 @@ struct FoodListByCategory: View {
                                     .frame(width: 60, height: 60)
                                     .cornerRadius(10)
                                 //Spacer()
-                                Text("X  \(order.foodQuantity)").foregroundColor(.white)
-                                    .font(.system(size: 20, weight: Font.Weight.bold, design: Font.Design.rounded))
+                                HStack(spacing: -1.0) {
+                                    Text("X  ").foregroundColor(.white)
+                                        .font(.system(size: 20, weight: Font.Weight.bold, design: Font.Design.rounded))
+                                    
+                                    VStack(spacing: 2.0) {
+                                        Image(systemName: "arrow.up.circle.fill").foregroundColor(.green)
+                                            .onTapGesture{
+                                                self.index = self.enviromentObj.foodInCart.firstIndex(where: {$0 == order})!
+                                                self.enviromentObj.foodInCart[index].foodQuantity += 1
+                                                self.enviromentObj.subTotal += 8.50
+                                            }
+                                        Text("\(order.foodQuantity)").foregroundColor(.white)
+                                            .font(.system(size: 20, weight: Font.Weight.bold, design: Font.Design.rounded))
+                                        Image(systemName: "arrow.down.circle.fill").foregroundColor(.red)
+                                            .onTapGesture{
+                                                /*      self.counter -= 1
+                                                 if self.counter <= 0{
+                                                     self.counter = 1
+                                                    }*/
+                                                self.index = self.enviromentObj.foodInCart.firstIndex(where: {$0 == order})!
+                                                self.enviromentObj.foodInCart[index].foodQuantity -= 1
+                                                if order.foodQuantity > 1 {
+                                                    self.enviromentObj.subTotal -= 8.50
+                                                }
+                                                if order.foodQuantity <= 1{
+                                                    self.enviromentObj.foodInCart[index].foodQuantity = 1
+                                                }
+                                            }
+                                    }
+                                    
+                                }
                                 
                                 VStack(spacing: 5.0){
                                     Text(order.foodRefrence.foodName).foregroundColor(.gray).font(.system(size: 20, weight: Font.Weight.medium, design: Font.Design.rounded))
@@ -89,6 +117,9 @@ struct FoodListByCategory: View {
                         }
                         .padding(.top)
                         Spacer()
+                        Text("Total $ \(String(format: "%.2f" ,self.enviromentObj.subTotal))")
+                            .foregroundColor(.white)
+                            .font(.system(size: 30, weight: Font.Weight.bold, design: Font.Design.rounded))
                         Button(action: {
                             
                             //Placing order and adding the order in firebase database
@@ -104,13 +135,14 @@ struct FoodListByCategory: View {
                                 
                                 //Clearing out the cart after the order has been placed
                                 self.enviromentObj.foodInCart.removeAll()
+                                self.enviromentObj.subTotal = 0.0
                                 print("Successfully added to database")
                             }else{
                                 self.showAlert = true
                             }
                         }){
                             Text("Place Order").foregroundColor(.black).font(.largeTitle).padding()
-                                .background(Color.green.opacity(0.9)).cornerRadius(20).shadow(color: .white, radius: 10)
+                                .background(Color.green.opacity(0.9)).cornerRadius(20)//.shadow(color: .white, radius: 10)
                                 
                         }
                         .alert(isPresented: $showAlert){

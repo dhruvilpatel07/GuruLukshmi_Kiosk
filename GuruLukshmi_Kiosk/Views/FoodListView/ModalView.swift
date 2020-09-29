@@ -83,6 +83,7 @@ struct ModalView: View {
                     
                     //Appending the each oreder in side of globalVariables foodInCart array
                     self.enviromentObj.foodInCart.append(ListOfOrder(foodRefrence: self.enviromentObj.food, foodQuantity: self.counter))
+                    self.enviromentObj.subTotal += (Double(self.counter) * 8.50)
                     
                     for food in self.enviromentObj.foodInCart{
                         print("IN CART: - \(food)")
