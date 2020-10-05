@@ -15,15 +15,6 @@ struct FoodCategory: Codable, Identifiable, Hashable {
     @DocumentID var id: String?
     var foodType: String
     var categoryImage: String
-    //var categoryImg
-    /*enum Category: String, CaseIterable, Codable, Hashable {
-        case appetizers = "Appetizers"
-        case indianBreads = "Indian Breads"
-        case idly = "Idly"
-        case dosa = "Dosa"
-        case signatureDosa = "Signature Dosa"
-        case dessert = "Dessert"
-    }*/
 }
 
 //Beverages

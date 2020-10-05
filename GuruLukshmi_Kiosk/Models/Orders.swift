@@ -14,9 +14,6 @@ import FirebaseFirestoreSwift
 struct Orders: Codable, Identifiable, Hashable {
     @DocumentID var id: String?
     var cName: String = "Dhruvil Patel"
-    //var foodName: String
-    //var foodQuantity: Int
-    //var foodRefrence: Food?
     var listOfOrder = [ListOfOrder]()
     @ServerTimestamp var orderedTime: Timestamp?
     

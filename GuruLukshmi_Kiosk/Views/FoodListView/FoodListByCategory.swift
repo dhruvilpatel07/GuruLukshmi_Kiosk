@@ -21,32 +21,59 @@ struct FoodListByCategory: View {
     @State private var showAlert = false
     @State var arrayOfListOfOrder = [ListOfOrder]()
     @State var index = 0
+    let fade =  Gradient(colors: [Color.black, Color.clear])
     //@State var indexAddMoreFood = 0
     var body: some View {
         VStack {
             HStack {
+                
                     Spacer()
-                // MARK: = Displaying Foods in 2 Rows
+                // MARK: - Displaying Foods in 2 Rows
+                VStack {
+                    if self.category.foodType == "Dosa"{
+                        HStack {
+                            Image("dosa").resizable()
+                                .mask(LinearGradient(gradient: fade, startPoint: .leading, endPoint: .trailing))
+                                .cornerRadius(10)
+                                .frame(width: 340, height: 200)
+                            
+                            VStack {
+                                Text("Customize Your Own\n Dosa").foregroundColor(.orange)
+                                    .font(.system(size: 30, weight: Font.Weight.medium, design: Font.Design.rounded))
+                                    .multilineTextAlignment(.center)
+                                Text("- Staring from $9.99").font(.system(size: 15, weight: Font.Weight.medium, design: Font.Design.rounded))
+                                    .foregroundColor(.white)
+                            }
+
+                        
+                        }
+                    }
+                    Spacer(minLength: 0)
                     ScrollView {
-                         LazyVGrid(columns: columns, spacing: 80) {
-                             ForEach(foodList, id: \.self) { food in
-                                if self.category.foodType == food.foodType.foodType{
-                                    CustomImageView(food: food)
-                                    .onTapGesture {
-                                            self.showModal.toggle()
-                                        print(tempFood.foodName)
-                                        self.enviromentObj.food = food
-                                        print(tempFood)
-                                    }.sheet(isPresented: self.$showModal){
-                                        ModalView(showModal: self.$showModal)
+                             LazyVGrid(columns: columns, spacing: 80) {
+                                 ForEach(foodList, id: \.self) { food in
+                                    if self.category.foodType == food.foodType.foodType{
+                                        CustomImageView(food: food)
+                                        .onTapGesture {
+                                                self.showModal.toggle()
+                                            print(tempFood.foodName)
+                                            self.enviromentObj.food = food
+                                            print(tempFood)
+                                        }.sheet(isPresented: self.$showModal){
+                                            ModalView(showModal: self.$showModal)
+                                        }
                                     }
-                                }
-                                    
+                                        
+                                 }
                              }
-                         }
-                         .padding(.trailing)
-                         .padding(.leading, -20)
+                             .padding(.trailing)
+                             
+                             .padding(.top, self.category.foodType == "Dosa" ? 80 : 0)
+                             .padding(.leading, -20)
                     }.padding(.top, 80).frame(width: 680)
+                    
+                }
+                .padding(.top, 20)
                     
                 // MARK: - Cart Section
                     VStack {
@@ -83,10 +110,6 @@ struct FoodListByCategory: View {
                                             .font(.system(size: 20, weight: Font.Weight.bold, design: Font.Design.rounded))
                                         Image(systemName: "arrow.down.circle.fill").foregroundColor(.red)
                                             .onTapGesture{
-                                                /*      self.counter -= 1
-                                                 if self.counter <= 0{
-                                                     self.counter = 1
-                                                    }*/
                                                 self.index = self.enviromentObj.foodInCart.firstIndex(where: {$0 == order})!
                                                 self.enviromentObj.foodInCart[index].foodQuantity -= 1
                                                 if order.foodQuantity > 1 {
@@ -121,6 +144,9 @@ struct FoodListByCategory: View {
                             .foregroundColor(.white)
                             .font(.system(size: 30, weight: Font.Weight.bold, design: Font.Design.rounded))
                         Button(action: {
+                            for food in testData{
+                                self.db.addFoods(food)
+                            }
                             
                             //Placing order and adding the order in firebase database
                             if self.enviromentObj.foodInCart.count > 0{

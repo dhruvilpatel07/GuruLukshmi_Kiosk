@@ -7,9 +7,12 @@
 //
 
 import Foundation
+import Combine
+import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 struct Food: Codable, Identifiable, Hashable {
-    var id: String = UUID().uuidString
+    @DocumentID var id: String?
     var foodName: String
     var foodDescription: String
     var foodType: FoodCategory
@@ -70,8 +73,8 @@ let testData = [
     Food(foodName: "Dosa with Chees", foodDescription: <#String#>,  foodType: .signatureDosa, imgName: "dosaChees", categoryImgName: "SignatureDosa", favourite: true),
     Food(foodName: "Butter Garlic Dosa", foodDescription: <#String#>,  foodType: .signatureDosa, imgName: "dosaChees", categoryImgName: "SignatureDosa", favourite: true),
     
-    //-------------------------------------------------Idly-----------------------------------
-    Food(foodName: "Idly Sambhar", foodDescription: <#String#>,  foodType: .idly, imgName: "idly", categoryImgName: "Idly", favourite: true),
+    //-------------------------------------------------Idly-----------------------------------<#String#>
+    Food(foodName: "Idly Sambhar", foodDescription: ,  foodType: .idly, imgName: "idly", categoryImgName: "Idly", favourite: true),
     Food(foodName: "Spicy Sambhar Idly", foodDescription: <#String#>,  foodType: .idly, imgName: "idly", categoryImgName: "Idly", favourite: false),
     
 

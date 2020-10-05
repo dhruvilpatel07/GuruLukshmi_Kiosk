@@ -10,6 +10,7 @@
 		A084303BCC86A01ED608F63F /* Pods_GuruLukshmi_Kiosk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F288E8A88AC7FAC8E8879AD9 /* Pods_GuruLukshmi_Kiosk.framework */; };
 		A13ADBD8251B15A3002619B9 /* ListOfOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13ADBD7251B15A3002619B9 /* ListOfOrder.swift */; };
 		A13ADBDB25216083002619B9 /* DosaARModel.usdz in Resources */ = {isa = PBXBuildFile; fileRef = A13ADBDA25216083002619B9 /* DosaARModel.usdz */; };
+		A13ADC2E2529290C002619B9 /* CustomizeYourOwnDosa.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13ADC2D2529290C002619B9 /* CustomizeYourOwnDosa.swift */; };
 		A1DA932125180FFA00E5A77B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DA932025180FFA00E5A77B /* AppDelegate.swift */; };
 		A1DA932325180FFA00E5A77B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DA932225180FFA00E5A77B /* SceneDelegate.swift */; };
 		A1DA932525180FFA00E5A77B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DA932425180FFA00E5A77B /* ContentView.swift */; };
@@ -34,6 +35,7 @@
 		313E56BA8273CB91BD553D81 /* Pods-GuruLukshmi_Kiosk.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GuruLukshmi_Kiosk.debug.xcconfig"; path = "Target Support Files/Pods-GuruLukshmi_Kiosk/Pods-GuruLukshmi_Kiosk.debug.xcconfig"; sourceTree = "<group>"; };
 		A13ADBD7251B15A3002619B9 /* ListOfOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfOrder.swift; sourceTree = "<group>"; };
 		A13ADBDA25216083002619B9 /* DosaARModel.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = DosaARModel.usdz; sourceTree = "<group>"; };
+		A13ADC2D2529290C002619B9 /* CustomizeYourOwnDosa.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CustomizeYourOwnDosa.swift; path = GuruLukshmi_Kiosk/Views/FoodListView/CustomizeYourOwnDosa.swift; sourceTree = SOURCE_ROOT; };
 		A1DA931D25180FFA00E5A77B /* GuruLukshmi_Kiosk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GuruLukshmi_Kiosk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1DA932025180FFA00E5A77B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A1DA932225180FFA00E5A77B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -68,6 +70,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A13ADC2C2529286B002619B9 /* CustomeDosa */ = {
+			isa = PBXGroup;
+			children = (
+				A13ADC2D2529290C002619B9 /* CustomizeYourOwnDosa.swift */,
+			);
+			path = CustomeDosa;
+			sourceTree = "<group>";
+		};
 		A1DA931425180FFA00E5A77B = {
 			isa = PBXGroup;
 			children = (
@@ -125,6 +135,7 @@
 		A1DA935A251923B500E5A77B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				A13ADC2C2529286B002619B9 /* CustomeDosa */,
 				A1DA936C251930B000E5A77B /* FoodListView */,
 				A1DA93662519245600E5A77B /* NavigationSideBar */,
 			);
@@ -328,6 +339,7 @@
 				A1DA93792519771200E5A77B /* GlobalVariables.swift in Sources */,
 				A1DA932325180FFA00E5A77B /* SceneDelegate.swift in Sources */,
 				A1DA93812519806300E5A77B /* DatabaseConnection.swift in Sources */,
+				A13ADC2E2529290C002619B9 /* CustomizeYourOwnDosa.swift in Sources */,
 				A1DA932825180FFA00E5A77B /* GuruLukshmi_Kiosk.xcdatamodeld in Sources */,
 				A1DA932525180FFA00E5A77B /* ContentView.swift in Sources */,
 				A1DA937C251977A700E5A77B /* Orders.swift in Sources */,

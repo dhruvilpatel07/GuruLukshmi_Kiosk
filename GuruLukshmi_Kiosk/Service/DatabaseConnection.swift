@@ -25,4 +25,25 @@ class DatabaseConnection: ObservableObject {
         }
         
     }
+    
+    func addFoodCategory(_ foodCategory: FoodCategory){
+        do{
+           
+            let _ = try db.collection("FoodCategory").addDocument(from: foodCategory)
+        }
+        catch{
+            fatalError("Enable to add Order: \(error.localizedDescription)")
+        }
+    }
+    
+    func addFoods(_ food: Food){
+        do{
+           
+            let _ = try db.collection("Food").addDocument(from: food)
+           // db.collection("Food").whereField("categoryID", isEqualTo: food.foodType.id)
+        }
+        catch{
+            fatalError("Enable to add Order: \(error.localizedDescription)")
+        }
+    }
 }
