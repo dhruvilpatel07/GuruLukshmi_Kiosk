@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct ContentView: View {
-    var categoryList = testFoodCategory
+    
+   // var categoryList = TestDatabase().arrayOfCategory
+    @ObservedObject var db = DatabaseConnection()
     var body: some View {
         NavigationView{
         ZStack{
@@ -20,7 +22,7 @@ struct ContentView: View {
                 
                 //Spacer()
                 List{
-                    ForEach(self.categoryList, id: \.self){ category in
+                    ForEach(self.db.arrayOfCategory, id: \.self){ category in
                         NavigationLink(
                             destination: FoodListByCategory(category: category)){
                             Text(category.foodType)

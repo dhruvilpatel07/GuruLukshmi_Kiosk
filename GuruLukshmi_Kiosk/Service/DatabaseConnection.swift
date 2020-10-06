@@ -11,14 +11,60 @@ import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 class DatabaseConnection: ObservableObject {
+    @Published var arrayOfCategory = [FoodCategory]()
+    @Published var arrayOfFoodList = [Food]()
  
     let db = Firestore.firestore()
     
+    init() {
+        loadFood()
+        loadCategory()
+    }
+    
+    func loadCategory() {
+        db.collection("FoodCategory")
+        //.order(by: "orderedTime")
+            .addSnapshotListener { (querySnapshot, error) in
+            if let querySnapshot = querySnapshot{
+                self.arrayOfCategory = querySnapshot.documents.compactMap{ document in
+                    do{
+                        let x = try document.data(as: FoodCategory.self)
+                        return x
+                    }
+                    catch{
+                        print(error)
+                    }
+                    return nil
+                    
+                }
+            }
+        }
+    }
+    
+    func loadFood() {
+        db.collection("Food")
+        //.order(by: "orderedTime")
+            .addSnapshotListener { (querySnapshot, error) in
+            if let querySnapshot = querySnapshot{
+                self.arrayOfFoodList = querySnapshot.documents.compactMap{ document in
+                    do{
+                        let x = try document.data(as: Food.self)
+                        return x
+                    }
+                    catch{
+                        print(error)
+                    }
+                    return nil
+                    
+                }
+            }
+        }
+    }
     
     func addOrders(_ order: Orders){
         do{
-           
             let _ = try db.collection("Orders").addDocument(from: order)
+           
         }
         catch{
             fatalError("Enable to add Order: \(error.localizedDescription)")

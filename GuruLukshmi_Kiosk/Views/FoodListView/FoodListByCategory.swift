@@ -14,15 +14,19 @@ struct FoodListByCategory: View {
        GridItem(.adaptive(minimum: 230))
     ]
     @ObservedObject var db = DatabaseConnection()
+    //@ObservedObject var testDB = TestDatabase()
     var category : FoodCategory
     var foodList = testData
-    @State var tempFood : Food = testData[0]
+    @State var tempFood : Food = testData[0] // MARK: - Check ME
     @State private var showModal = false
     @State private var showAlert = false
     @State var arrayOfListOfOrder = [ListOfOrder]()
     @State var index = 0
     let fade =  Gradient(colors: [Color.black, Color.clear])
+    
     //@State var indexAddMoreFood = 0
+    
+
     var body: some View {
         VStack {
             HStack {
@@ -31,6 +35,8 @@ struct FoodListByCategory: View {
                 // MARK: - Displaying Foods in 2 Rows
                 VStack {
                     if self.category.foodType == "Dosa"{
+                        NavigationLink(destination: Text("Customize Dosa")) {
+                        
                         HStack {
                             Image("dosa").resizable()
                                 .mask(LinearGradient(gradient: fade, startPoint: .leading, endPoint: .trailing))
@@ -47,18 +53,19 @@ struct FoodListByCategory: View {
 
                         
                         }
+                        }
                     }
                     Spacer(minLength: 0)
                     ScrollView {
                              LazyVGrid(columns: columns, spacing: 80) {
-                                 ForEach(foodList, id: \.self) { food in
-                                    if self.category.foodType == food.foodType.foodType{
+                                ForEach(self.db.arrayOfFoodList, id: \.self) { food in
+                                    if self.category.foodType == food.foodType{
                                         CustomImageView(food: food)
                                         .onTapGesture {
                                                 self.showModal.toggle()
-                                            print(tempFood.foodName)
+                                           // print(tempFood.foodName)
                                             self.enviromentObj.food = food
-                                            print(tempFood)
+                                           // print(tempFood)
                                         }.sheet(isPresented: self.$showModal){
                                             ModalView(showModal: self.$showModal)
                                         }
@@ -91,7 +98,7 @@ struct FoodListByCategory: View {
                         // Fetching the order from enviromental objects
                         ForEach(self.enviromentObj.foodInCart, id: \.self) { order in
                             HStack(alignment: .center, spacing: 25.0) {
-                                Image(order.foodRefrence.foodType.categoryImage).resizable()
+                                Image(order.foodRefrence.categoryImage).resizable()
                                     .frame(width: 60, height: 60)
                                     .cornerRadius(10)
                                 //Spacer()
@@ -134,6 +141,7 @@ struct FoodListByCategory: View {
                                     .onTapGesture {
                                         //Find the first occurance of object in array and returns its index
                                         self.index = self.enviromentObj.foodInCart.firstIndex(where: {$0 == order})!
+                                        self.enviromentObj.subTotal -= (Double(self.enviromentObj.foodInCart[index].foodQuantity) * 8.50)
                                         enviromentObj.foodInCart.remove(at: self.index)
                                     }
                             }
@@ -143,10 +151,13 @@ struct FoodListByCategory: View {
                         Text("Total $ \(String(format: "%.2f" ,self.enviromentObj.subTotal))")
                             .foregroundColor(.white)
                             .font(.system(size: 30, weight: Font.Weight.bold, design: Font.Design.rounded))
+                        // MARK: - Adding to database (Place order btn)
                         Button(action: {
-                            for food in testData{
+                          
+                            /*for food in testData{
                                 self.db.addFoods(food)
-                            }
+                            }*/
+                           
                             
                             //Placing order and adding the order in firebase database
                             if self.enviromentObj.foodInCart.count > 0{
