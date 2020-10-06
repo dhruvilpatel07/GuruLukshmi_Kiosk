@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// # Delete this file if not using at the end 
 struct CustomeSideBarView: View {
     var category: FoodCategory
     let fade =  Gradient(colors: [Color.black, Color.clear])

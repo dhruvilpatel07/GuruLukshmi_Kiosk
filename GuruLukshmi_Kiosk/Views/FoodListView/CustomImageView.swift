@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+/// # Custome Image class for styling how food list will display in FoodListByCategory.swift
 struct CustomImageView: View {
     let fade =  Gradient(colors: [Color.black, Color.clear])
     var food: Food
@@ -23,7 +24,7 @@ struct CustomImageView: View {
                         .opacity(0.7)
                         .frame(width: 100, height: 100)
                         .overlay(
-                            Text("$8.50").foregroundColor(.white).font(.system(size: 28, weight: Font.Weight.heavy, design: Font.Design.rounded))
+                            Text("$\(String(format: "%.2f" ,food.foodPrice))").foregroundColor(.white).font(.system(size: 28, weight: Font.Weight.heavy, design: Font.Design.rounded))
                         )
                         .offset(x: 120, y: -120)
 

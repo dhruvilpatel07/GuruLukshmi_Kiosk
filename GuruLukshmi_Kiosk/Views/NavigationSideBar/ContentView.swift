@@ -7,9 +7,8 @@
 
 import SwiftUI
 
+/// # Home page where food category is displayed
 struct ContentView: View {
-    
-   // var categoryList = TestDatabase().arrayOfCategory
     @ObservedObject var db = DatabaseConnection()
     var body: some View {
         NavigationView{
