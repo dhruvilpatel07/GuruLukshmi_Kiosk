@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct FoodListByCategory: View {
-    // MARK: - Variables and Properties 
+    // MARK: - Variables and Properties
+    
     let columns = [
        GridItem(.adaptive(minimum: 230))
     ]
@@ -72,6 +73,7 @@ struct FoodListByCategory: View {
                                         }.sheet(isPresented: self.$showModal){
                                             ModalView(showModal: self.$showModal)
                                         }
+                                        
                                     }
                                         
                                  }
@@ -174,7 +176,6 @@ struct FoodListByCategory: View {
                              - Checking condition if the cart is emplty or not to avoid adding empty orders to database
                          */
                         Button(action: {
-
                           
                             if self.enviromentObj.foodInCart.count > 0{
                                 

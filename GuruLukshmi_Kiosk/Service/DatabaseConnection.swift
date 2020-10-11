@@ -13,6 +13,7 @@ import FirebaseFirestoreSwift
 class DatabaseConnection: ObservableObject {
     @Published var arrayOfCategory = [FoodCategory]()
     @Published var arrayOfFoodList = [Food]()
+    @Published var accessCode = [AccessCode]()
  
     let db = Firestore.firestore()
     
@@ -23,6 +24,7 @@ class DatabaseConnection: ObservableObject {
     
     func loadCategory() {
         db.collection("FoodCategory")
+            .order(by: "foodType")
         //.order(by: "orderedTime")
             .addSnapshotListener { (querySnapshot, error) in
             if let querySnapshot = querySnapshot{
@@ -49,6 +51,27 @@ class DatabaseConnection: ObservableObject {
                 self.arrayOfFoodList = querySnapshot.documents.compactMap{ document in
                     do{
                         let x = try document.data(as: Food.self)
+                        return x
+                    }
+                    catch{
+                        print(error)
+                    }
+                    return nil
+                    
+                }
+            }
+        }
+    }
+    
+    func loadAccessCode() {
+        db.collection("AccessCode")
+            //.order(by: "foodType")
+        //.order(by: "orderedTime")
+            .addSnapshotListener { (querySnapshot, error) in
+            if let querySnapshot = querySnapshot{
+                self.accessCode = querySnapshot.documents.compactMap{ document in
+                    do{
+                        let x = try document.data(as: AccessCode.self)
                         return x
                     }
                     catch{

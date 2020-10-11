@@ -28,6 +28,12 @@
 		A1DA93792519771200E5A77B /* GlobalVariables.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DA93782519771200E5A77B /* GlobalVariables.swift */; };
 		A1DA937C251977A700E5A77B /* Orders.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DA937B251977A700E5A77B /* Orders.swift */; };
 		A1DA93812519806300E5A77B /* DatabaseConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DA93802519806200E5A77B /* DatabaseConnection.swift */; };
+		A1DEA03F2532694C0094BCDB /* UserObjectModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DEA03E2532694C0094BCDB /* UserObjectModelData.swift */; };
+		A1DEA04425326C2A0094BCDB /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DEA04325326C2A0094BCDB /* LoginView.swift */; };
+		A1DEA04725326D5E0094BCDB /* CustomTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DEA04625326D5E0094BCDB /* CustomTextFieldView.swift */; };
+		A1DEA04A25326F5E0094BCDB /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DEA04925326F5E0094BCDB /* LoadingView.swift */; };
+		A1DEA04D25326F6D0094BCDB /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DEA04C25326F6D0094BCDB /* SignUpView.swift */; };
+		A1DEA05025328EB30094BCDB /* AccessCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DEA04F25328EB30094BCDB /* AccessCode.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +61,12 @@
 		A1DA93782519771200E5A77B /* GlobalVariables.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalVariables.swift; sourceTree = "<group>"; };
 		A1DA937B251977A700E5A77B /* Orders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Orders.swift; sourceTree = "<group>"; };
 		A1DA93802519806200E5A77B /* DatabaseConnection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseConnection.swift; sourceTree = "<group>"; };
+		A1DEA03E2532694C0094BCDB /* UserObjectModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserObjectModelData.swift; path = GuruLukshmi_Kiosk/Models/UserObjectModelData.swift; sourceTree = SOURCE_ROOT; };
+		A1DEA04325326C2A0094BCDB /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		A1DEA04625326D5E0094BCDB /* CustomTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextFieldView.swift; sourceTree = "<group>"; };
+		A1DEA04925326F5E0094BCDB /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		A1DEA04C25326F6D0094BCDB /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
+		A1DEA04F25328EB30094BCDB /* AccessCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessCode.swift; sourceTree = "<group>"; };
 		F288E8A88AC7FAC8E8879AD9 /* Pods_GuruLukshmi_Kiosk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GuruLukshmi_Kiosk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -135,6 +147,7 @@
 		A1DA935A251923B500E5A77B /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				A1DEA03D253268FE0094BCDB /* LoginView */,
 				A13ADC2C2529286B002619B9 /* CustomeDosa */,
 				A1DA936C251930B000E5A77B /* FoodListView */,
 				A1DA93662519245600E5A77B /* NavigationSideBar */,
@@ -161,10 +174,12 @@
 		A1DA93602519240100E5A77B /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				A1DEA03E2532694C0094BCDB /* UserObjectModelData.swift */,
 				A1DA93622519242B00E5A77B /* Food.swift */,
 				A1DA93612519242B00E5A77B /* FoodCategory.swift */,
 				A1DA937B251977A700E5A77B /* Orders.swift */,
 				A13ADBD7251B15A3002619B9 /* ListOfOrder.swift */,
+				A1DEA04F25328EB30094BCDB /* AccessCode.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -194,6 +209,17 @@
 				A1DA93782519771200E5A77B /* GlobalVariables.swift */,
 			);
 			path = Helper;
+			sourceTree = "<group>";
+		};
+		A1DEA03D253268FE0094BCDB /* LoginView */ = {
+			isa = PBXGroup;
+			children = (
+				A1DEA04325326C2A0094BCDB /* LoginView.swift */,
+				A1DEA04625326D5E0094BCDB /* CustomTextFieldView.swift */,
+				A1DEA04925326F5E0094BCDB /* LoadingView.swift */,
+				A1DEA04C25326F6D0094BCDB /* SignUpView.swift */,
+			);
+			path = LoginView;
 			sourceTree = "<group>";
 		};
 		A891DB7EB3974623E8E236FF /* Pods */ = {
@@ -334,16 +360,22 @@
 				A1DA93642519242B00E5A77B /* Food.swift in Sources */,
 				A13ADBD8251B15A3002619B9 /* ListOfOrder.swift in Sources */,
 				A1DA932125180FFA00E5A77B /* AppDelegate.swift in Sources */,
+				A1DEA03F2532694C0094BCDB /* UserObjectModelData.swift in Sources */,
 				A1DA93632519242B00E5A77B /* FoodCategory.swift in Sources */,
 				A1DA936E251930FF00E5A77B /* FoodListByCategory.swift in Sources */,
 				A1DA93792519771200E5A77B /* GlobalVariables.swift in Sources */,
 				A1DA932325180FFA00E5A77B /* SceneDelegate.swift in Sources */,
+				A1DEA04425326C2A0094BCDB /* LoginView.swift in Sources */,
 				A1DA93812519806300E5A77B /* DatabaseConnection.swift in Sources */,
 				A13ADC2E2529290C002619B9 /* CustomizeYourOwnDosa.swift in Sources */,
 				A1DA932825180FFA00E5A77B /* GuruLukshmi_Kiosk.xcdatamodeld in Sources */,
 				A1DA932525180FFA00E5A77B /* ContentView.swift in Sources */,
 				A1DA937C251977A700E5A77B /* Orders.swift in Sources */,
+				A1DEA05025328EB30094BCDB /* AccessCode.swift in Sources */,
+				A1DEA04D25326F6D0094BCDB /* SignUpView.swift in Sources */,
 				A1DA937225193DDC00E5A77B /* CustomImageView.swift in Sources */,
+				A1DEA04A25326F5E0094BCDB /* LoadingView.swift in Sources */,
+				A1DEA04725326D5E0094BCDB /* CustomTextFieldView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
