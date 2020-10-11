@@ -27,7 +27,7 @@ struct LoginView: View {
 
                 
                 VStack(spacing: 20){
-                    CustomTextFieldView(image: "person", placeHolder: "Email", txt: $model.email)
+                    CustomTextFieldView(image: "person", placeHolder: "User ID", txt: $model.userId)
                     
                     CustomTextFieldView(image: "lock", placeHolder: "Password", txt: $model.password)
                 }
@@ -43,42 +43,13 @@ struct LoginView: View {
                 }
                 .padding(.top,20)
                 
-                HStack(spacing: 10){
-                    
-                    Text("Don't have an account?")
-                        .foregroundColor(Color.white.opacity(0.7))
-                    
-                    Button(action: {model.isSignUp.toggle()}) {
-                        
-                        Text("Sign Up Now")
-                            .fontWeight(.bold)
-                            .foregroundColor(.white)
-                    }
-                }
-                .padding(.top,25)
-                
                 Spacer(minLength: 0)
-                
-                Button(action: model.resetPassword) {
-                    
-                    Text("Forget Password?")
-                        .fontWeight(.bold)
-                        .foregroundColor(.white)
-                }
-                .padding(.vertical,22)
-
             }
-            
-            if model.isLoading{
-                
-                LoadingView()
-            }
+            //if model.isLoading{
+              //  LoadingView()
+            //}
         }
         .background(LinearGradient(gradient: .init(colors: [Color.newPrimaryColor,Color.newSecondaryColor]), startPoint: .top, endPoint: .bottom).ignoresSafeArea(.all, edges: .all))
-        .fullScreenCover(isPresented: $model.isSignUp) {
-            
-            SignUpView(model: model)
-        }
         .alert(isPresented: $model.alert, content: {
             Alert(title: Text("Message"), message: Text(model.alertMsg), dismissButton: .destructive(Text("Ok")))
         })

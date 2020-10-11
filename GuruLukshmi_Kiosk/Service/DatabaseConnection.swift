@@ -13,13 +13,14 @@ import FirebaseFirestoreSwift
 class DatabaseConnection: ObservableObject {
     @Published var arrayOfCategory = [FoodCategory]()
     @Published var arrayOfFoodList = [Food]()
-    @Published var accessCode = [AccessCode]()
+    @Published var arrayOfKioskLoginId = [Users]()
  
     let db = Firestore.firestore()
     
     init() {
         loadFood()
         loadCategory()
+        loadKioskLoginId()
     }
     
     func loadCategory() {
@@ -63,15 +64,15 @@ class DatabaseConnection: ObservableObject {
         }
     }
     
-    func loadAccessCode() {
-        db.collection("AccessCode")
+    func loadKioskLoginId() {
+        db.collection("KioskLoginId")
             //.order(by: "foodType")
         //.order(by: "orderedTime")
             .addSnapshotListener { (querySnapshot, error) in
             if let querySnapshot = querySnapshot{
-                self.accessCode = querySnapshot.documents.compactMap{ document in
+                self.arrayOfKioskLoginId = querySnapshot.documents.compactMap{ document in
                     do{
-                        let x = try document.data(as: AccessCode.self)
+                        let x = try document.data(as: Users.self)
                         return x
                     }
                     catch{

@@ -31,9 +31,8 @@
 		A1DEA03F2532694C0094BCDB /* UserObjectModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DEA03E2532694C0094BCDB /* UserObjectModelData.swift */; };
 		A1DEA04425326C2A0094BCDB /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DEA04325326C2A0094BCDB /* LoginView.swift */; };
 		A1DEA04725326D5E0094BCDB /* CustomTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DEA04625326D5E0094BCDB /* CustomTextFieldView.swift */; };
-		A1DEA04A25326F5E0094BCDB /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DEA04925326F5E0094BCDB /* LoadingView.swift */; };
-		A1DEA04D25326F6D0094BCDB /* SignUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DEA04C25326F6D0094BCDB /* SignUpView.swift */; };
 		A1DEA05025328EB30094BCDB /* AccessCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DEA04F25328EB30094BCDB /* AccessCode.swift */; };
+		A1DEA054253295EA0094BCDB /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DEA053253295EA0094BCDB /* Users.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -64,9 +63,8 @@
 		A1DEA03E2532694C0094BCDB /* UserObjectModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserObjectModelData.swift; path = GuruLukshmi_Kiosk/Models/UserObjectModelData.swift; sourceTree = SOURCE_ROOT; };
 		A1DEA04325326C2A0094BCDB /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		A1DEA04625326D5E0094BCDB /* CustomTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextFieldView.swift; sourceTree = "<group>"; };
-		A1DEA04925326F5E0094BCDB /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
-		A1DEA04C25326F6D0094BCDB /* SignUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpView.swift; sourceTree = "<group>"; };
 		A1DEA04F25328EB30094BCDB /* AccessCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessCode.swift; sourceTree = "<group>"; };
+		A1DEA053253295EA0094BCDB /* Users.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
 		F288E8A88AC7FAC8E8879AD9 /* Pods_GuruLukshmi_Kiosk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GuruLukshmi_Kiosk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -180,6 +178,7 @@
 				A1DA937B251977A700E5A77B /* Orders.swift */,
 				A13ADBD7251B15A3002619B9 /* ListOfOrder.swift */,
 				A1DEA04F25328EB30094BCDB /* AccessCode.swift */,
+				A1DEA053253295EA0094BCDB /* Users.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -216,8 +215,6 @@
 			children = (
 				A1DEA04325326C2A0094BCDB /* LoginView.swift */,
 				A1DEA04625326D5E0094BCDB /* CustomTextFieldView.swift */,
-				A1DEA04925326F5E0094BCDB /* LoadingView.swift */,
-				A1DEA04C25326F6D0094BCDB /* SignUpView.swift */,
 			);
 			path = LoginView;
 			sourceTree = "<group>";
@@ -368,13 +365,12 @@
 				A1DEA04425326C2A0094BCDB /* LoginView.swift in Sources */,
 				A1DA93812519806300E5A77B /* DatabaseConnection.swift in Sources */,
 				A13ADC2E2529290C002619B9 /* CustomizeYourOwnDosa.swift in Sources */,
+				A1DEA054253295EA0094BCDB /* Users.swift in Sources */,
 				A1DA932825180FFA00E5A77B /* GuruLukshmi_Kiosk.xcdatamodeld in Sources */,
 				A1DA932525180FFA00E5A77B /* ContentView.swift in Sources */,
 				A1DA937C251977A700E5A77B /* Orders.swift in Sources */,
 				A1DEA05025328EB30094BCDB /* AccessCode.swift in Sources */,
-				A1DEA04D25326F6D0094BCDB /* SignUpView.swift in Sources */,
 				A1DA937225193DDC00E5A77B /* CustomImageView.swift in Sources */,
-				A1DEA04A25326F5E0094BCDB /* LoadingView.swift in Sources */,
 				A1DEA04725326D5E0094BCDB /* CustomTextFieldView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
