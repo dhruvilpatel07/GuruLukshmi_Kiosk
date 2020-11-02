@@ -35,7 +35,7 @@ struct ContentView: View {
                         List{
                             ForEach(self.db.arrayOfCategory, id: \.self){ category in
                                 NavigationLink(
-                                    destination: FoodListByCategory(category: category)){
+                                    destination: FoodListByCategory(category: category, model: model)){
                                     Text(category.foodType)
                                 }
                                 

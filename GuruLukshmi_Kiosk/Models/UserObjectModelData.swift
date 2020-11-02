@@ -16,6 +16,7 @@ class UserObjectModelData : ObservableObject {
     @Published var password = ""
     @ObservedObject var db = DatabaseConnection()
     var userFound = false
+    @Published var isDineIn = false
     
     // Error Alerts
     @Published var alert = false
@@ -40,6 +41,7 @@ class UserObjectModelData : ObservableObject {
         
         for user in self.db.arrayOfKioskLoginId {
             if user.user == userId && user.password == password{
+                isDineIn = user.isDineIn
                 self.userFound = true
             }
         }
@@ -64,6 +66,7 @@ class UserObjectModelData : ObservableObject {
         userId = ""
         password = ""
         userFound = false
+        isDineIn = false
     }
     
 }

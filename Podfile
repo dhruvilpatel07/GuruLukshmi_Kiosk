@@ -10,5 +10,6 @@ target 'GuruLukshmi_Kiosk' do
     pod 'Firebase/Auth'
     pod 'Firebase/Firestore'
     pod 'FirebaseFirestoreSwift'
+    pod 'SDWebImageSwiftUI'
 
 end

@@ -11,47 +11,48 @@ struct FoodListByCategory: View {
     // MARK: - Variables and Properties
     
     let columns = [
-       GridItem(.adaptive(minimum: 230))
+        GridItem(.adaptive(minimum: 230))
     ]
     let fade =  Gradient(colors: [Color.black, Color.clear])
     var category : FoodCategory
     
     @EnvironmentObject var enviromentObj : GlobalVariables
     @ObservedObject var db = DatabaseConnection()
-
+    @ObservedObject var model : UserObjectModelData
+    
     @State private var showModal = false
     @State private var showAlert = false
     @State var arrayOfListOfOrder = [ListOfOrder]()
     @State var index = 0
-
+    
     // MARK: - Body
     var body: some View {
         VStack {
             HStack {
                 
-                    Spacer()
+                Spacer()
                 
                 VStack {
                     // Disaplying Customize your own dosa button only if the selected category is Dosa
                     if self.category.foodType == "Dosa"{
                         NavigationLink(destination: CustomizeYourOwnDosa()) {
-                        
-                        HStack {
-                            Image("dosa").resizable()
-                                .mask(LinearGradient(gradient: fade, startPoint: .leading, endPoint: .trailing))
-                                .cornerRadius(10)
-                                .frame(width: 340, height: 200)
                             
-                            VStack {
-                                Text("Customize Your Own\n Dosa").foregroundColor(.orange)
-                                    .font(.system(size: 30, weight: Font.Weight.medium, design: Font.Design.rounded))
-                                    .multilineTextAlignment(.center)
-                                Text("- Staring from $9.99").font(.system(size: 15, weight: Font.Weight.medium, design: Font.Design.rounded))
-                                    .foregroundColor(.white)
+                            HStack {
+                                Image("dosa").resizable()
+                                    .mask(LinearGradient(gradient: fade, startPoint: .leading, endPoint: .trailing))
+                                    .cornerRadius(10)
+                                    .frame(width: 340, height: 200)
+                                
+                                VStack {
+                                    Text("Customize Your Own\n Dosa").foregroundColor(.orange)
+                                        .font(.system(size: 30, weight: Font.Weight.medium, design: Font.Design.rounded))
+                                        .multilineTextAlignment(.center)
+                                    Text("- Staring from $9.99").font(.system(size: 15, weight: Font.Weight.medium, design: Font.Design.rounded))
+                                        .foregroundColor(.white)
+                                }
+                                
+                                
                             }
-
-                        
-                        }
                         }
                     }
                     Spacer(minLength: 0)
@@ -59,12 +60,12 @@ struct FoodListByCategory: View {
                     // MARK: - Displaying Foods in 2 Rows
                     /// Displaying list of food is LazyVGrid View
                     ScrollView {
-                             LazyVGrid(columns: columns, spacing: 80) {
-                                ForEach(self.db.arrayOfFoodList, id: \.self) { food in
-                                    
-                                    //Condition to display only the foods which is assigned to particular category
-                                    if self.category.foodType == food.foodType{
-                                        CustomImageView(food: food)
+                        LazyVGrid(columns: columns, spacing: 80) {
+                            ForEach(self.db.arrayOfFoodList, id: \.self) { food in
+                                
+                                //Condition to display only the foods which is assigned to particular category
+                                if self.category.foodType == food.foodType{
+                                    CustomImageView(food: food)
                                         
                                         //adding the selected food object global variable and displaying modal view
                                         .onTapGesture {
@@ -73,28 +74,29 @@ struct FoodListByCategory: View {
                                         }.sheet(isPresented: self.$showModal){
                                             ModalView(showModal: self.$showModal)
                                         }
-                                        
-                                    }
-                                        
-                                 }
-                             }
-                             .padding(.trailing)
-                             
-                             .padding(.top, self.category.foodType == "Dosa" ? 80 : 0)
-                             .padding(.leading, -20)
+                                    
+                                }
+                                
+                            }
+                        }
+                        .padding(.trailing)
+                        
+                        .padding(.top, self.category.foodType == "Dosa" ? 80 : 0)
+                        .padding(.leading, -20)
                     }.padding(.top, 80).frame(width: 680)
                     
                 }
                 .padding(.top, 20)
-                    
+                
                 // MARK: - Cart Section
-                    VStack {
+                VStack {
+                    ScrollView(.vertical, showsIndicators: false){
                         HStack {
                             Text("Your order").font(.system(size: 20, weight: Font.Weight.medium, design: Font.Design.rounded))
                                 .foregroundColor(.white)
-                                
+                            
                             Spacer()
-
+                            
                         }.padding(.top, 80)
                         .padding(.horizontal)
                         
@@ -147,7 +149,7 @@ struct FoodListByCategory: View {
                                     Text(order.foodRefrence.foodName).foregroundColor(.gray).font(.system(size: 20, weight: Font.Weight.medium, design: Font.Design.rounded))
                                         .multilineTextAlignment(.center)
                                     Text("$\(String(format: "%.2f" ,order.foodRefrence.foodPrice))").foregroundColor(.white).font(.system(size: 15, weight: Font.Weight.medium, design: Font.Design.rounded))
-                                
+                                    
                                 }.frame(width: 130)
                                 
                                 //Button to delete food from cart
@@ -164,51 +166,53 @@ struct FoodListByCategory: View {
                         }
                         .padding(.top)
                         
-                        Spacer()
+                        //Spacer()
                         
-                        //Displaying subTotal
-                        Text("Total $ \(String(format: "%.2f" ,self.enviromentObj.subTotal))")
-                            .foregroundColor(.white)
-                            .font(.system(size: 30, weight: Font.Weight.bold, design: Font.Design.rounded))
                         
-                        // MARK: - Adding to database (Place order btn)
-                        /** #Placing order and adding the order in firebase database
-                             - Checking condition if the cart is emplty or not to avoid adding empty orders to database
-                         */
-                        Button(action: {
-                          
-                            if self.enviromentObj.foodInCart.count > 0{
-                                
-                                for order in self.enviromentObj.foodInCart{
-                                    arrayOfListOfOrder.append(order)
-                                }
-                                //Setting up the array of order, subTotal and adding it to database
-                                var dummyOrder = Orders()
-                                dummyOrder.orderSubTotal = self.enviromentObj.subTotal
-                                dummyOrder.listOfOrder = self.arrayOfListOfOrder
-                                self.db.addOrders(dummyOrder)
-                                
-                                //Clearing out the cart after the order has been placed
-                                self.enviromentObj.foodInCart.removeAll()
-                                self.enviromentObj.subTotal = 0.0
-                                print("Successfully added to database")// -> For debug purpose
-                            }else{
-                                self.showAlert = true
+                        
+                    }
+                    //Displaying subTotal
+                    Text("Total $ \(String(format: "%.2f" ,self.enviromentObj.subTotal))")
+                        .foregroundColor(.white)
+                        .font(.system(size: 30, weight: Font.Weight.bold, design: Font.Design.rounded))
+                    
+                    // MARK: - Adding to database (Place order btn)
+                    /** #Placing order and adding the order in firebase database
+                     - Checking condition if the cart is emplty or not to avoid adding empty orders to database
+                     */
+                    Button(action: {
+                        
+                        if self.enviromentObj.foodInCart.count > 0{
+                            
+                            for order in self.enviromentObj.foodInCart{
+                                arrayOfListOfOrder.append(order)
                             }
-                        }){
-                            Text("Place Order").foregroundColor(.black).font(.largeTitle).padding()
-                                .background(Color.green.opacity(0.9)).cornerRadius(20)
-                                
+                            //Setting up the array of order, subTotal and adding it to database
+                            var dummyOrder = Orders(isDineIn: self.model.isDineIn)
+                            // dummyOrder.isDineIn = self.model.isDineIn
+                            dummyOrder.orderSubTotal = self.enviromentObj.subTotal
+                            dummyOrder.listOfOrder = self.arrayOfListOfOrder
+                            self.db.addOrders(dummyOrder)
+                            
+                            //Clearing out the cart after the order has been placed
+                            self.enviromentObj.foodInCart.removeAll()
+                            self.enviromentObj.subTotal = 0.0
+                            print("Successfully added to database")// -> For debug purpose
+                        }else{
+                            self.showAlert = true
                         }
+                    }){
+                        Text("Place Order").foregroundColor(.black).font(.largeTitle).padding()
+                            .background(Color.green.opacity(0.9)).cornerRadius(20)
                         
-                        //Displaying alert if cart is empty and order button is pressed
-                        .alert(isPresented: $showAlert){
-                            Alert(title: Text("Cart is Empty"), dismissButton: .default(Text("OK")))
-                        }
-                        .padding(.bottom, 30)
-                        
-                    }.frame(width: 350)
-                    .background(Color.newAddToCartColot.opacity(0.1))
+                    }
+                    .padding(.bottom, 30)
+                    //Displaying alert if cart is empty and order button is pressed
+                    .alert(isPresented: $showAlert){
+                        Alert(title: Text("Cart is Empty"), dismissButton: .default(Text("OK")))
+                    }
+                }.frame(width: 350)
+                .background(Color.newAddToCartColot.opacity(0.1))
                 
             }.edgesIgnoringSafeArea(.all)
             Spacer()
@@ -221,6 +225,6 @@ struct FoodListByCategory: View {
 
 struct FoodListByCategory_Previews: PreviewProvider {
     static var previews: some View {
-        FoodListByCategory(category: testFoodCategory[0]).environmentObject(GlobalVariables())
+        FoodListByCategory(category: testFoodCategory[0], model: UserObjectModelData()).environmentObject(GlobalVariables())
     }
 }
