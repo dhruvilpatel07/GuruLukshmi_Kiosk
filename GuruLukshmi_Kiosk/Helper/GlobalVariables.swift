@@ -11,4 +11,7 @@ class GlobalVariables: ObservableObject {
     @Published var food = testData[0]
     @Published var foodInCart = [ListOfOrder]()
     @Published var subTotal = 0.0
+    @Published var finalTotal = 0.0
+    @Published var tax = 0.0
+    
 }

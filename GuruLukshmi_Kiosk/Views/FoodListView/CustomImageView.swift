@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SDWebImageSwiftUI
 
 /// # Custome Image class for styling how food list will display in FoodListByCategory.swift
 struct CustomImageView: View {

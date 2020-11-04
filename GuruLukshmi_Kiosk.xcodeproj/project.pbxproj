@@ -11,6 +11,7 @@
 		A13ADBD8251B15A3002619B9 /* ListOfOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13ADBD7251B15A3002619B9 /* ListOfOrder.swift */; };
 		A13ADBDB25216083002619B9 /* DosaARModel.usdz in Resources */ = {isa = PBXBuildFile; fileRef = A13ADBDA25216083002619B9 /* DosaARModel.usdz */; };
 		A13ADC2E2529290C002619B9 /* CustomizeYourOwnDosa.swift in Sources */ = {isa = PBXBuildFile; fileRef = A13ADC2D2529290C002619B9 /* CustomizeYourOwnDosa.swift */; };
+		A16A315D255149F00077ABAD /* DineInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A16A315C255149F00077ABAD /* DineInView.swift */; };
 		A1DA932125180FFA00E5A77B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DA932025180FFA00E5A77B /* AppDelegate.swift */; };
 		A1DA932325180FFA00E5A77B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DA932225180FFA00E5A77B /* SceneDelegate.swift */; };
 		A1DA932525180FFA00E5A77B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1DA932425180FFA00E5A77B /* ContentView.swift */; };
@@ -41,6 +42,7 @@
 		A13ADBD7251B15A3002619B9 /* ListOfOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListOfOrder.swift; sourceTree = "<group>"; };
 		A13ADBDA25216083002619B9 /* DosaARModel.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = DosaARModel.usdz; sourceTree = "<group>"; };
 		A13ADC2D2529290C002619B9 /* CustomizeYourOwnDosa.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CustomizeYourOwnDosa.swift; path = GuruLukshmi_Kiosk/Views/FoodListView/CustomizeYourOwnDosa.swift; sourceTree = SOURCE_ROOT; };
+		A16A315C255149F00077ABAD /* DineInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DineInView.swift; sourceTree = "<group>"; };
 		A1DA931D25180FFA00E5A77B /* GuruLukshmi_Kiosk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GuruLukshmi_Kiosk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1DA932025180FFA00E5A77B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A1DA932225180FFA00E5A77B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -215,6 +217,7 @@
 			children = (
 				A1DEA04325326C2A0094BCDB /* LoginView.swift */,
 				A1DEA04625326D5E0094BCDB /* CustomTextFieldView.swift */,
+				A16A315C255149F00077ABAD /* DineInView.swift */,
 			);
 			path = LoginView;
 			sourceTree = "<group>";
@@ -357,6 +360,7 @@
 				A1DA93642519242B00E5A77B /* Food.swift in Sources */,
 				A13ADBD8251B15A3002619B9 /* ListOfOrder.swift in Sources */,
 				A1DA932125180FFA00E5A77B /* AppDelegate.swift in Sources */,
+				A16A315D255149F00077ABAD /* DineInView.swift in Sources */,
 				A1DEA03F2532694C0094BCDB /* UserObjectModelData.swift in Sources */,
 				A1DA93632519242B00E5A77B /* FoodCategory.swift in Sources */,
 				A1DA936E251930FF00E5A77B /* FoodListByCategory.swift in Sources */,

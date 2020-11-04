@@ -16,7 +16,8 @@ class UserObjectModelData : ObservableObject {
     @Published var password = ""
     @ObservedObject var db = DatabaseConnection()
     var userFound = false
-    @Published var isDineIn = false
+    //@Published var isDineIn = false
+    //@Published var tableNumber = 0
     
     // Error Alerts
     @Published var alert = false
@@ -24,6 +25,8 @@ class UserObjectModelData : ObservableObject {
     
     // User Status
     @AppStorage("log_Status") var status = false
+    @AppStorage("log_Dine_In") var isDineIn = false
+    @AppStorage("log_Table_Number") var tableNumber = 0
     
     
     
@@ -41,7 +44,8 @@ class UserObjectModelData : ObservableObject {
         
         for user in self.db.arrayOfKioskLoginId {
             if user.user == userId && user.password == password{
-                isDineIn = user.isDineIn
+               // isDineIn = user.isDineIn
+                if user.isDineIn{ isDineIn = true }
                 self.userFound = true
             }
         }
@@ -61,6 +65,8 @@ class UserObjectModelData : ObservableObject {
     func logOut(){
         withAnimation{
             self.status = false
+            self.isDineIn = false
+            self.tableNumber = 0
         }
         // clearing all data
         userId = ""

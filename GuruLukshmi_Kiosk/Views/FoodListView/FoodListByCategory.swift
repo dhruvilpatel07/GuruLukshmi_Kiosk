@@ -165,15 +165,19 @@ struct FoodListByCategory: View {
                             }
                         }
                         .padding(.top)
-                        
-                        //Spacer()
-                        
-                        
-                        
                     }
-                    //Displaying subTotal
+                    //Displaying Total
                     Text("Total $ \(String(format: "%.2f" ,self.enviromentObj.subTotal))")
                         .foregroundColor(.white)
+                        .font(.system(size: 20, weight: Font.Weight.semibold, design: Font.Design.rounded))
+                    //Displaying Taxes
+                    Text("Tax $ \(String(format: "%.2f" ,(self.enviromentObj.subTotal * 0.13)))")
+                        .foregroundColor(.white)
+                        .font(.system(size: 20, weight: Font.Weight.semibold, design: Font.Design.rounded))
+                    //Displaying/Setting  SubTotal
+                    
+                    Text("SubTotal $ \(String(format: "%.2f" ,(self.enviromentObj.subTotal * 0.13) + self.enviromentObj.subTotal))")
+                        .foregroundColor(Color.newPrimaryColor)
                         .font(.system(size: 30, weight: Font.Weight.bold, design: Font.Design.rounded))
                     
                     // MARK: - Adding to database (Place order btn)
@@ -181,6 +185,8 @@ struct FoodListByCategory: View {
                      - Checking condition if the cart is emplty or not to avoid adding empty orders to database
                      */
                     Button(action: {
+                        
+                        self.enviromentObj.finalTotal = (self.enviromentObj.subTotal * 0.13) + self.enviromentObj.subTotal
                         
                         if self.enviromentObj.foodInCart.count > 0{
                             
@@ -190,8 +196,9 @@ struct FoodListByCategory: View {
                             //Setting up the array of order, subTotal and adding it to database
                             var dummyOrder = Orders(isDineIn: self.model.isDineIn)
                             // dummyOrder.isDineIn = self.model.isDineIn
-                            dummyOrder.orderSubTotal = self.enviromentObj.subTotal
+                            dummyOrder.orderSubTotal = self.enviromentObj.finalTotal
                             dummyOrder.listOfOrder = self.arrayOfListOfOrder
+                            dummyOrder.tableNumber = self.model.tableNumber
                             self.db.addOrders(dummyOrder)
                             
                             //Clearing out the cart after the order has been placed

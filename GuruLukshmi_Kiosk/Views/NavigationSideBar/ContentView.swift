@@ -12,38 +12,49 @@ import LocalAuthentication
 struct ContentView: View {
     @ObservedObject var db = DatabaseConnection()
     @AppStorage("log_Status") var status = false
+    @AppStorage("log_Dine_In") var isDineIn = false
+    @AppStorage("log_Table_Number") var tableNumber = 0
     @StateObject var model = UserObjectModelData()
+    @EnvironmentObject var enviromentObj : GlobalVariables
     
     var body: some View {
         
         if status {
-            NavigationView{
-                
-                ZStack{
-                    Color.black.opacity(0.9).edgesIgnoringSafeArea(.all)
+            if isDineIn && tableNumber == 0 {
+                DineInView()
+            }else{
+                NavigationView{
                     
-                    VStack {
-                        Text("Menu").foregroundColor(.white)
-                            .font(.largeTitle)
-                            .padding()
-                        Button(action: model.logOut, label: {
-                            Text("LogOut")
-                                .foregroundColor(.orange)
-                                .fontWeight(.bold)
-                        })
-                        //Spacer()
-                        List{
-                            ForEach(self.db.arrayOfCategory, id: \.self){ category in
-                                NavigationLink(
-                                    destination: FoodListByCategory(category: category, model: model)){
-                                    Text(category.foodType)
+                    ZStack{
+                        Color.black.opacity(0.9).edgesIgnoringSafeArea(.all)
+                        
+                        VStack {
+                            Text("Menu").foregroundColor(.white)
+                                .font(.largeTitle)
+                                .padding()
+                            Button(action: model.logOut, label: {
+                                Text("LogOut")
+                                    .foregroundColor(.orange)
+                                    .fontWeight(.bold)
+                            })
+                            //Spacer()
+                            List{
+                                ForEach(self.db.arrayOfCategory, id: \.self){ category in
+                                    NavigationLink(
+                                        destination: FoodListByCategory(category: category, model: model)){
+                                        Text(category.foodType)
+                                    }
+                                    
                                 }
-                                
                             }
                         }
+                    }.onAppear{
+                        print(self.isDineIn)
+                        print(self.tableNumber)
+                        
                     }
+                    .navigationViewStyle(StackNavigationViewStyle())
                 }
-                .navigationViewStyle(StackNavigationViewStyle())
             }
         }
         else{
@@ -60,6 +71,7 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+            .environmentObject(GlobalVariables())
             .previewDevice("iPad Pro (12.9-inch) (4th generation)")
     }
 }
