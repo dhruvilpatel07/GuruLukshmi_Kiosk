@@ -36,7 +36,7 @@ struct DineInView: View {
                     
                 }
             }else{
-                ContentView()
+                ContentView(payments: PaymentGateway(coder: NSCoder())!)
             }
         }.padding(.horizontal, 200)
         .padding(.top, 100)

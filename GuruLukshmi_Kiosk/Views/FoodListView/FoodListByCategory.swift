@@ -19,7 +19,9 @@ struct FoodListByCategory: View {
     @EnvironmentObject var enviromentObj : GlobalVariables
     @ObservedObject var db = DatabaseConnection()
     @ObservedObject var model : UserObjectModelData
+    @ObservedObject var payments : PaymentGateway
     
+   // @State private var makePayment = false
     @State private var showModal = false
     @State private var showAlert = false
     @State var arrayOfListOfOrder = [ListOfOrder]()
@@ -190,21 +192,31 @@ struct FoodListByCategory: View {
                         
                         if self.enviromentObj.foodInCart.count > 0{
                             
-                            for order in self.enviromentObj.foodInCart{
-                                arrayOfListOfOrder.append(order)
-                            }
-                            //Setting up the array of order, subTotal and adding it to database
-                            var dummyOrder = Orders(isDineIn: self.model.isDineIn)
-                            // dummyOrder.isDineIn = self.model.isDineIn
-                            dummyOrder.orderSubTotal = self.enviromentObj.finalTotal
-                            dummyOrder.listOfOrder = self.arrayOfListOfOrder
-                            dummyOrder.tableNumber = self.model.tableNumber
-                            self.db.addOrders(dummyOrder)
+                            //Taking payments through PayPal
+                            self.payments.PayNow(amount: self.enviromentObj.finalTotal)
+                           
+                                
+                                for order in self.enviromentObj.foodInCart{
+                                    arrayOfListOfOrder.append(order)
+                                }
+                                //Setting up the array of order, subTotal and adding it to database
+                                var dummyOrder = Orders(isDineIn: self.model.isDineIn)
+                                // dummyOrder.isDineIn = self.model.isDineIn
+                                dummyOrder.orderSubTotal = self.enviromentObj.finalTotal
+                                dummyOrder.listOfOrder = self.arrayOfListOfOrder
+                                dummyOrder.tableNumber = self.model.tableNumber
+                                self.db.addOrders(dummyOrder)
+                                
+                                
+                                
+                                
+                                //Clearing out the cart after the order has been placed
+                                self.enviromentObj.foodInCart.removeAll()
+                                self.enviromentObj.subTotal = 0.0
+                                print("Successfully added to database")// -> For debug purpose
                             
-                            //Clearing out the cart after the order has been placed
-                            self.enviromentObj.foodInCart.removeAll()
-                            self.enviromentObj.subTotal = 0.0
-                            print("Successfully added to database")// -> For debug purpose
+                           
+                            
                         }else{
                             self.showAlert = true
                         }
@@ -232,6 +244,6 @@ struct FoodListByCategory: View {
 
 struct FoodListByCategory_Previews: PreviewProvider {
     static var previews: some View {
-        FoodListByCategory(category: testFoodCategory[0], model: UserObjectModelData()).environmentObject(GlobalVariables())
+        FoodListByCategory(category: testFoodCategory[0], model: UserObjectModelData(), payments: PaymentGateway(coder: NSCoder())!).environmentObject(GlobalVariables())
     }
 }

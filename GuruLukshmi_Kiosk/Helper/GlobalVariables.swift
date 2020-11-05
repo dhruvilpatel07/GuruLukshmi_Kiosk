@@ -13,5 +13,7 @@ class GlobalVariables: ObservableObject {
     @Published var subTotal = 0.0
     @Published var finalTotal = 0.0
     @Published var tax = 0.0
+    @Published var didPaymentWentThrough = false
+    
     
 }

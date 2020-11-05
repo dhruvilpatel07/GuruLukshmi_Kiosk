@@ -16,6 +16,7 @@ struct ContentView: View {
     @AppStorage("log_Table_Number") var tableNumber = 0
     @StateObject var model = UserObjectModelData()
     @EnvironmentObject var enviromentObj : GlobalVariables
+    @ObservedObject var payments : PaymentGateway
     
     var body: some View {
         
@@ -41,7 +42,7 @@ struct ContentView: View {
                             List{
                                 ForEach(self.db.arrayOfCategory, id: \.self){ category in
                                     NavigationLink(
-                                        destination: FoodListByCategory(category: category, model: model)){
+                                        destination: FoodListByCategory(category: category, model: model, payments: payments)){
                                         Text(category.foodType)
                                     }
                                     
@@ -70,7 +71,7 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView(payments: PaymentGateway(coder: NSCoder())!)
             .environmentObject(GlobalVariables())
             .previewDevice("iPad Pro (12.9-inch) (4th generation)")
     }
