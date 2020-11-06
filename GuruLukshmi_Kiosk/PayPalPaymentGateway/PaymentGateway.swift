@@ -9,10 +9,12 @@ import Foundation
 import Braintree
 import SwiftUI
 
+
+/** #PayPal Payment Gateway
+    - Taking amount from subTotal and charging it to customer through paypal */
 class PaymentGateway: UIViewController, ObservableObject, BTViewControllerPresentingDelegate, BTAppSwitchDelegate {
     
     var braintreeClient: BTAPIClient?
-    //@Published var didPaymentWentThrough = false
     
     
     required init?(coder aDecoder: NSCoder) {
@@ -21,35 +23,40 @@ class PaymentGateway: UIViewController, ObservableObject, BTViewControllerPresen
         super.init(nibName: nil, bundle: nil)
     }
     
-    func PayNow(amount: Double) {
-        let payPalDriver = BTPayPalDriver(apiClient: braintreeClient!)
-        payPalDriver.viewControllerPresentingDelegate = self
-        payPalDriver.appSwitchDelegate = self // Optional
+    /// PayNow fucntion which will create charges and send through PayPal
+    /// - Parameters:
+    ///   - amount: the amount which needs to be charged
+    ///   - finished: compelition handler which will make sure that customers have been charged before adding order to database
+    func PayNow(amount: Double, finished:@escaping (Bool) -> ()) {
         
-        // Specify the transaction amount here.
-        let request = BTPayPalRequest(amount: String(format: "%.2f", amount))
-        request.currencyCode = "CAD" // Optional; see BTPayPalRequest.h for more options
-        request.displayName = "Guru Lakshmi"
-        
-        payPalDriver.requestOneTimePayment(request) { (tokenizedPayPalAccount, error) in
-            if let tokenizedPayPalAccount = tokenizedPayPalAccount {
-                print("Got a nonce: \(tokenizedPayPalAccount.nonce)")
+        DispatchQueue.main.async {
+            let payPalDriver = BTPayPalDriver(apiClient: self.braintreeClient!)
+            payPalDriver.viewControllerPresentingDelegate = self
+            payPalDriver.appSwitchDelegate = self // Optional
+            
+            // Specify the transaction amount here.
+            let request = BTPayPalRequest(amount: String(format: "%.2f", amount))
+            request.currencyCode = "CAD" // Optional; see BTPayPalRequest.h for more options
+            request.displayName = "Guru Lakshmi"
+            
+            payPalDriver.requestOneTimePayment(request) { (tokenizedPayPalAccount, error) in
+                if let tokenizedPayPalAccount = tokenizedPayPalAccount {
+                    print("Got a nonce: \(tokenizedPayPalAccount.nonce)")
 
-                // Access additional information
-                let email = tokenizedPayPalAccount.email
-                let firstName = tokenizedPayPalAccount.firstName
-                let lastName = tokenizedPayPalAccount.lastName
-                let phone = tokenizedPayPalAccount.phone
-                print("Email: \(String(describing: email))\nFirst Name: \(String(describing: firstName))\nLast Name: \(String(describing: lastName))\nPhone: \(String(describing: phone))")
-                //self.didPaymentWentThrough = true
-                //print(self.didPaymentWentThrough)
-                
-                print(request.amount)
-            } else if let error = error {
-                // Handle error here...
-                print(error.localizedDescription)
-            } else {
-                // Buyer canceled payment approval
+                    // Access additional information
+                    let email = tokenizedPayPalAccount.email
+                    let firstName = tokenizedPayPalAccount.firstName
+                    let lastName = tokenizedPayPalAccount.lastName
+                    let phone = tokenizedPayPalAccount.phone
+                    print("Email: \(String(describing: email))\nFirst Name: \(String(describing: firstName))\nLast Name: \(String(describing: lastName))\nPhone: \(String(describing: phone))")
+                    print(request.amount)
+                    finished(true)
+                } else if let error = error {
+                    // Handle error here...
+                    print(error.localizedDescription)
+                } else {
+                    // Buyer canceled payment approval
+                }
             }
         }
     }

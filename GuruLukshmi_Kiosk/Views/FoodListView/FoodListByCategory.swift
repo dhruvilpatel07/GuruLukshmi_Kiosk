@@ -182,9 +182,10 @@ struct FoodListByCategory: View {
                         .foregroundColor(Color.newPrimaryColor)
                         .font(.system(size: 30, weight: Font.Weight.bold, design: Font.Design.rounded))
                     
-                    // MARK: - Adding to database (Place order btn)
+                    // MARK: - Taking Payments / Adding to database (Place order btn)
                     /** #Placing order and adding the order in firebase database
                      - Checking condition if the cart is emplty or not to avoid adding empty orders to database
+                     - Checking if the payment have been successfully went through or not and then adding the order to database
                      */
                     Button(action: {
                         
@@ -193,30 +194,28 @@ struct FoodListByCategory: View {
                         if self.enviromentObj.foodInCart.count > 0{
                             
                             //Taking payments through PayPal
-                            self.payments.PayNow(amount: self.enviromentObj.finalTotal)
-                           
+                            self.payments.PayNow(amount: self.enviromentObj.finalTotal, finished: { (success) -> Void in
                                 
-                                for order in self.enviromentObj.foodInCart{
-                                    arrayOfListOfOrder.append(order)
+                                if success{
+                                    for order in self.enviromentObj.foodInCart{
+                                        arrayOfListOfOrder.append(order)
+                                    }
+                                    //Setting up the array of order, subTotal and adding it to database
+                                    var dummyOrder = Orders(isDineIn: self.model.isDineIn)
+                                    // dummyOrder.isDineIn = self.model.isDineIn
+                                    dummyOrder.orderSubTotal = self.enviromentObj.finalTotal
+                                    dummyOrder.listOfOrder = self.arrayOfListOfOrder
+                                    dummyOrder.tableNumber = self.model.tableNumber
+                                    self.db.addOrders(dummyOrder)
+
+                                    //Clearing out the cart after the order has been placed
+                                    self.enviromentObj.foodInCart.removeAll()
+                                    self.enviromentObj.subTotal = 0.0
+                                    print("Successfully added to database")// -> For debug purpose
                                 }
-                                //Setting up the array of order, subTotal and adding it to database
-                                var dummyOrder = Orders(isDineIn: self.model.isDineIn)
-                                // dummyOrder.isDineIn = self.model.isDineIn
-                                dummyOrder.orderSubTotal = self.enviromentObj.finalTotal
-                                dummyOrder.listOfOrder = self.arrayOfListOfOrder
-                                dummyOrder.tableNumber = self.model.tableNumber
-                                self.db.addOrders(dummyOrder)
                                 
-                                
-                                
-                                
-                                //Clearing out the cart after the order has been placed
-                                self.enviromentObj.foodInCart.removeAll()
-                                self.enviromentObj.subTotal = 0.0
-                                print("Successfully added to database")// -> For debug purpose
-                            
-                           
-                            
+                            })
+   
                         }else{
                             self.showAlert = true
                         }
