@@ -33,7 +33,7 @@ struct ContentView: View {
                             Text("Menu").foregroundColor(.white)
                                 .font(.largeTitle)
                                 .padding()
-                            Button(action: model.logOut, label: {
+                            Button(action: model.checkLogoutPass, label: {
                                 Text("LogOut")
                                     .foregroundColor(.orange)
                                     .fontWeight(.bold)
@@ -54,13 +54,19 @@ struct ContentView: View {
                         print(self.tableNumber)
                         
                     }
+                    
                     .navigationViewStyle(StackNavigationViewStyle())
                 }
+                .alert(isPresented: $model.alert, content: {
+                    Alert(title: Text("Error"), message: Text(model.alertMsg), dismissButton: .destructive(Text("Ok")))
+                })
             }
+            
         }
         else{
             LoginView(model: model)
         }
+        
         
     }
     

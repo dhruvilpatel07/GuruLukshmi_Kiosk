@@ -16,8 +16,7 @@ class UserObjectModelData : ObservableObject {
     @Published var password = ""
     @ObservedObject var db = DatabaseConnection()
     var userFound = false
-    //@Published var isDineIn = false
-    //@Published var tableNumber = 0
+    @Published var correctLogoutPassword = false
     
     // Error Alerts
     @Published var alert = false
@@ -29,7 +28,48 @@ class UserObjectModelData : ObservableObject {
     @AppStorage("log_Table_Number") var tableNumber = 0
     
     
-    
+    //Logout password check
+    func checkLogoutPass(){
+        
+        let alert = UIAlertController(title: "Enter Password", message: "Enter Your Password to logout", preferredStyle: .alert)
+        
+        alert.addTextField { (password) in
+            password.placeholder = "Password"
+            password.isSecureTextEntry = true
+        }
+        
+        
+        let proceed = UIAlertAction(title: "Enter", style: .default) { (_) in
+            
+            // Sending Password Link
+            
+            if alert.textFields![0].text! != ""{
+                
+                if alert.textFields![0].text! == "1234" {
+                    self.correctLogoutPassword = true
+                    
+                    withAnimation{
+                        self.logOut()
+                    }
+                }else{
+                    self.alertMsg = "Incorrect Password"
+                    self.alert.toggle()
+                    //return
+                }
+                
+           
+            }
+        }
+        
+        let cancel = UIAlertAction(title: "Cancel", style: .destructive, handler: nil)
+        
+        alert.addAction(cancel)
+        alert.addAction(proceed)
+        
+        // Presenting
+        
+        UIApplication.shared.windows.first?.rootViewController?.present(alert, animated: true)
+    }
     // Login
     func login(){
         
@@ -67,6 +107,7 @@ class UserObjectModelData : ObservableObject {
             self.status = false
             self.isDineIn = false
             self.tableNumber = 0
+            self.correctLogoutPassword = false
         }
         // clearing all data
         userId = ""
