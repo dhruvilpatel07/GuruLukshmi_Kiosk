@@ -45,6 +45,7 @@
 		A13ADC2D2529290C002619B9 /* CustomizeYourOwnDosa.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CustomizeYourOwnDosa.swift; path = GuruLukshmi_Kiosk/Views/FoodListView/CustomizeYourOwnDosa.swift; sourceTree = SOURCE_ROOT; };
 		A16A315C255149F00077ABAD /* DineInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DineInView.swift; sourceTree = "<group>"; };
 		A19162162552DF0700481D39 /* PaymentGateway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentGateway.swift; sourceTree = "<group>"; };
+		A191623C2556AA6900481D39 /* sendEmail_bridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sendEmail_bridge.h; sourceTree = "<group>"; };
 		A1DA931D25180FFA00E5A77B /* GuruLukshmi_Kiosk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GuruLukshmi_Kiosk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1DA932025180FFA00E5A77B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A1DA932225180FFA00E5A77B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -122,6 +123,7 @@
 		A1DA931F25180FFA00E5A77B /* GuruLukshmi_Kiosk */ = {
 			isa = PBXGroup;
 			children = (
+				A191623C2556AA6900481D39 /* sendEmail_bridge.h */,
 				A19162152552DEC100481D39 /* PayPalPaymentGateway */,
 				A1DA9377251976F800E5A77B /* Helper */,
 				A1DA9358251923A800E5A77B /* App */,
@@ -531,6 +533,33 @@
 				DEVELOPMENT_ASSET_PATHS = "\"GuruLukshmi_Kiosk/Preview Content\"";
 				DEVELOPMENT_TEAM = LPAWQLXXWM;
 				ENABLE_PREVIEWS = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/BoringSSL-GRPC/openssl_grpc.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Braintree/Braintree.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseAuth/FirebaseAuth.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseCore/FirebaseCore.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseCoreDiagnostics/FirebaseCoreDiagnostics.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseFirestore/FirebaseFirestore.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseFirestoreSwift/FirebaseFirestoreSwift.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseInstallations/FirebaseInstallations.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/GoogleDataTransport/GoogleDataTransport.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/GoogleUtilities/GoogleUtilities.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/PromisesObjC/FBLPromises.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/abseil/absl.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/gRPC-C++/grpcpp.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/gRPC-Core/grpc.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/leveldb-library/leveldb.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/nanopb/nanopb.framework/Headers\"",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/Firebase\"",
+					"\"${PODS_ROOT}/Headers/Public/mailcore2-ios\"",
+					"$(inherited)",
+					"${PODS_ROOT}/Firebase/CoreOnly/Sources",
+					"\"${PODS_TARGET_SRCROOT}/Sources/FBLPromises/include\"",
+					"\"${PODS_ROOT}/Headers/Public/mailcore2-ios/MailCore\"",
+				);
 				INFOPLIST_FILE = GuruLukshmi_Kiosk/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -538,6 +567,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "Dhruvil.GuruLukshmi-Kiosk";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/GuruLukshmi_Kiosk/sendEmail_bridge.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -553,6 +583,33 @@
 				DEVELOPMENT_ASSET_PATHS = "\"GuruLukshmi_Kiosk/Preview Content\"";
 				DEVELOPMENT_TEAM = LPAWQLXXWM;
 				ENABLE_PREVIEWS = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/BoringSSL-GRPC/openssl_grpc.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/Braintree/Braintree.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseAuth/FirebaseAuth.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseCore/FirebaseCore.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseCoreDiagnostics/FirebaseCoreDiagnostics.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseFirestore/FirebaseFirestore.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseFirestoreSwift/FirebaseFirestoreSwift.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/FirebaseInstallations/FirebaseInstallations.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/GoogleDataTransport/GoogleDataTransport.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/GoogleUtilities/GoogleUtilities.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/PromisesObjC/FBLPromises.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/abseil/absl.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/gRPC-C++/grpcpp.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/gRPC-Core/grpc.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/leveldb-library/leveldb.framework/Headers\"",
+					"\"${PODS_CONFIGURATION_BUILD_DIR}/nanopb/nanopb.framework/Headers\"",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/Firebase\"",
+					"\"${PODS_ROOT}/Headers/Public/mailcore2-ios\"",
+					"$(inherited)",
+					"${PODS_ROOT}/Firebase/CoreOnly/Sources",
+					"\"${PODS_TARGET_SRCROOT}/Sources/FBLPromises/include\"",
+					"\"${PODS_ROOT}/Headers/Public/mailcore2-ios/MailCore\"",
+				);
 				INFOPLIST_FILE = GuruLukshmi_Kiosk/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -560,6 +617,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "Dhruvil.GuruLukshmi-Kiosk";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/GuruLukshmi_Kiosk/sendEmail_bridge.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 2;
 			};

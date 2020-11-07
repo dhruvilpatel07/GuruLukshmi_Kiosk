@@ -11,5 +11,6 @@ target 'GuruLukshmi_Kiosk' do
     pod 'Firebase/Firestore'
     pod 'FirebaseFirestoreSwift'
     pod 'Braintree'
+    pod 'mailcore2-ios'
 
 end

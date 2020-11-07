@@ -36,6 +36,7 @@ class UserObjectModelData : ObservableObject {
         alert.addTextField { (password) in
             password.placeholder = "Password"
             password.isSecureTextEntry = true
+            
         }
         
         
@@ -115,5 +116,74 @@ class UserObjectModelData : ObservableObject {
         userFound = false
         isDineIn = false
     }
+    
+    //Send emial reciept
+    func sendEmail(){
+        
+        let format = UIGraphicsPDFRendererFormat()
+        let metaData = [
+            kCGPDFContextTitle: "Hello, World!",
+            kCGPDFContextAuthor: "John Doe"
+          ]
+        format.documentInfo = metaData as [String: Any]
+        let pageRect = CGRect(x: 0, y: 0, width: 595.2, height: 841.8)
+        let renderer = UIGraphicsPDFRenderer(bounds: pageRect)
+        
+        let title = "School report\n"
+        let text = String(repeating: "This is an important report about the weather. ", count: 20)
+
+        let titleAttributes = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 36)]
+        let textAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12)]
+
+        let formattedTitle = NSMutableAttributedString(string: title, attributes: titleAttributes)
+        let formattedText = NSAttributedString(string: text, attributes: textAttributes)
+        formattedTitle.append(formattedText)
+        
+        
+        let data = renderer.pdfData { (ctx) in
+            ctx.beginPage()
+
+            formattedTitle.draw(in: pageRect.insetBy(dx: 50, dy: 50))
+        }
+        
+        let smtpSession = MCOSMTPSession()
+        smtpSession.hostname = "smtp.gmail.com"
+        smtpSession.username = "dhruvilp263@gmail.com"
+        smtpSession.password = "ksrcicfmckrpdwwc"
+        smtpSession.port = 465
+        smtpSession.authType = MCOAuthType.saslPlain
+        smtpSession.connectionType = MCOConnectionType.TLS
+        smtpSession.connectionLogger = {(connectionID, type, data) in
+            if data != nil {
+                if let string = NSString(data: data!, encoding: String.Encoding.utf8.rawValue){
+                    NSLog("Connectionlogger: \(string)")
+                }
+            }
+        }
+        let builder = MCOMessageBuilder()
+        builder.header.to = [MCOAddress(displayName: "Charles", mailbox: "dhruvilpatel07@icloud.com")!]
+        builder.header.from = MCOAddress(displayName: "Xavier", mailbox: "dhruvilp263@gmail.com")
+        builder.header.subject = "Test Email"
+        builder.htmlBody="<p>Thank you for watching</p>"
+        builder.addAttachment(MCOAttachment(data: data, filename: "Bill.pdf"))
+       
+        
+        let rfc822Data = builder.data()
+        let sendOperation = smtpSession.sendOperation(with: rfc822Data)
+        sendOperation?.start { (error) -> Void in
+            if (error != nil) {
+                NSLog("Error sending email: \(String(describing: error))")
+                
+                
+            } else {
+                NSLog("Successfully sent email!")
+                
+                
+            }
+        }
+    }
+
+    
+    
     
 }

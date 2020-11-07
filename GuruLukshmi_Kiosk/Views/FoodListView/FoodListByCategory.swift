@@ -207,6 +207,9 @@ struct FoodListByCategory: View {
                                     dummyOrder.listOfOrder = self.arrayOfListOfOrder
                                     dummyOrder.tableNumber = self.model.tableNumber
                                     self.db.addOrders(dummyOrder)
+                                    
+                                    //Sending Email Transaction Recors (Reciept)
+                                    self.model.sendEmail()
 
                                     //Clearing out the cart after the order has been placed
                                     self.enviromentObj.foodInCart.removeAll()
