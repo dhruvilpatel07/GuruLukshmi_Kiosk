@@ -1,5 +1,11 @@
 # Customer Side UI 
 
+## What does this app do?
+- This app has to 2 UI one for customers to place order and one dashboard [(Click here for more info on dashboard)](https://github.com/dhruvilpatel07/GuruLukshmi_DashBoard) for staff/kitchen side/admin 
+- App uses Firebase to listen to live updates of database and updates dashboard side when ever the new order is placed in resturant
+- At the begining of shifts staff members logs in to customer side UI to select if the current iPad is going to be used for take-out or dine-in
+- If it's dine-in then select which table is that iPad is allocated to (to display table number in database and display it in dashboard to serve customer)
+
 ## Technologies / Libraries used to create this project 
 - Xcode
 - Swift/SwiftUI
