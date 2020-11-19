@@ -118,7 +118,7 @@ class UserObjectModelData : ObservableObject {
     }
     
     //Send emial reciept
-    func sendEmail(){
+    func sendEmail(foodList: [ListOfOrder], orderTotalAmount: Double, totalBeforeTaxes: Double, orderID: String, cEmail: String, cName: String){
         
         let format = UIGraphicsPDFRendererFormat()
         let metaData = [
@@ -129,22 +129,112 @@ class UserObjectModelData : ObservableObject {
         let pageRect = CGRect(x: 0, y: 0, width: 595.2, height: 841.8)
         let renderer = UIGraphicsPDFRenderer(bounds: pageRect)
         
-        let title = "School report\n"
-        let text = String(repeating: "This is an important report about the weather. ", count: 20)
+        let title = "Guru Lukshmi\n\n"
+        let contactInfo = ""
+        let address = String(" 7070 St Barbara Blvd #50\n Mississauga ON\n L5W 0E6\n (905) 795-2299")
+        let orderSummaryTitle = "Order Summary\n"
+        let summaryLegend = "QTY\t\tFOOD NAME\t\t\t\t\t\t\t\t\t\t\t\t\t\tAMOUNT"
+        let subTotal = "SUBTOTAL"
+        let taxes = "TAXES"
+        let totalPrice = "TOTAL"
+        let orderId = "ORDER # \(orderID)"
+        let date = Date().localizedDescription
+        let paymentSummaryTitle = "Payment Summary\n"
+        let paymentCustomerName = "CUSTOMER NAME: \t \(cName)"
+        let paymentCustomerEmail = "CUSTOMER EMAIL: \t\(cEmail)"
+        let paymentTypeSelected = "PAYMENT METHOD: \tPayPal"
+       
+        //var foodName = "ff"
 
-        let titleAttributes = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 36)]
-        let textAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12)]
+        let titleAttributes = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 36), NSAttributedString.Key.foregroundColor: UIColor.systemOrange]
+        let contactInfoAttribute = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15)]
+        let addressAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 10)]
+        let orderSummaryTitleAttributes = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 20)]
+        let summaryLegentAttributes = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 15)]
+        let orderAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 10)]
+        let orderIdAttributes = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 10)]
+       // let foodNameAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 10)]
+        
 
         let formattedTitle = NSMutableAttributedString(string: title, attributes: titleAttributes)
-        let formattedText = NSAttributedString(string: text, attributes: textAttributes)
-        formattedTitle.append(formattedText)
+        let formattedContactInfo = NSMutableAttributedString(string: contactInfo, attributes: contactInfoAttribute)
+        let formattedAddress = NSMutableAttributedString(string: address, attributes: addressAttributes)
+        let formattedOrderSummaryTitle = NSMutableAttributedString(string: orderSummaryTitle, attributes: orderSummaryTitleAttributes)
+        let formattedSummaryLegend = NSMutableAttributedString(string: summaryLegend, attributes: summaryLegentAttributes)
+        let formattedsubtotal = NSMutableAttributedString(string: subTotal, attributes: orderAttributes)
+        let formattedtaxes = NSMutableAttributedString(string: taxes, attributes: orderAttributes)
+        let formattedTotalPrice = NSMutableAttributedString(string: totalPrice, attributes: orderAttributes)
+        let formattedOrderId = NSMutableAttributedString(string: orderId, attributes: orderIdAttributes)
+        let formattedDate = NSMutableAttributedString(string: date, attributes: orderIdAttributes)
+        let formattedPaymentSummaryTitle = NSMutableAttributedString(string: paymentSummaryTitle, attributes: orderSummaryTitleAttributes)
+        let formattedCustomerName = NSMutableAttributedString(string: paymentCustomerName, attributes: orderAttributes)
+        let formattedCustomerEmail = NSMutableAttributedString(string: paymentCustomerEmail, attributes: orderAttributes)
+        let formattedPaymentType = NSMutableAttributedString(string: paymentTypeSelected, attributes: orderAttributes)
+        
+        
+        //let formattedFoodName = NSMutableAttributedString(string: foodName, attributes: foodNameAttributes)
+        formattedContactInfo.append(formattedAddress)
+        //formattedTitle.append(formattedAddress)
         
         
         let data = renderer.pdfData { (ctx) in
             ctx.beginPage()
+            let taxesAmount = (totalBeforeTaxes * 0.13)
+            let formattedSubTotalAmount = NSMutableAttributedString(string: String(format: "$ %.2f", totalBeforeTaxes), attributes: orderAttributes)
+            let formattedTaxesAmount = NSMutableAttributedString(string: String(format: "$ %.2f", taxesAmount), attributes: orderAttributes)
+            let formattedTotalPriceAmount = NSMutableAttributedString(string: String(format: "$ %.2f", orderTotalAmount), attributes: orderAttributes)
+           
 
-            formattedTitle.draw(in: pageRect.insetBy(dx: 50, dy: 50))
+            formattedTitle.draw(in: pageRect.insetBy(dx: 180, dy: 50))
+            formattedOrderId.draw(at: CGPoint(x: 405, y: 120))
+            formattedDate.draw(at: CGPoint(x: 405, y: 140))
+            formattedContactInfo.draw(in: pageRect.insetBy(dx: 50, dy: 120))
+            formattedOrderSummaryTitle.draw(in: pageRect.insetBy(dx: 210, dy: 210))
+            formattedSummaryLegend.draw(in: pageRect.insetBy(dx: 50, dy: 250))
+            //var x = 210
+            var y = 290
+            
+            //Displaying Qty / name/ price
+            for food in foodList{
+                let foodName = food.foodRefrence.foodName
+                let foodQty = food.foodQuantity
+                let foodPrice = food.foodRefrence.foodPrice * Double(foodQty)
+                let formattedFoodName = NSMutableAttributedString(string: foodName, attributes: orderAttributes)
+                let formattedFoodQty = NSMutableAttributedString(string: String(foodQty), attributes: orderAttributes)
+                let formattedFoodPrice = NSMutableAttributedString(string: String(format: "$ %.2f", foodPrice), attributes: orderAttributes)
+                formattedFoodQty.draw(in: pageRect.insetBy(dx: 60, dy: CGFloat(y)))
+                formattedFoodName.draw(in: pageRect.insetBy(dx: 140, dy: CGFloat(y)))
+                
+                formattedFoodPrice.draw(at: CGPoint(x: 405, y: y))
+                
+                y += 20
+            }
+            
+            y += 30
+            formattedsubtotal.draw(at: CGPoint(x: 340, y: y))
+            formattedSubTotalAmount.draw(at: CGPoint(x: 405, y: y))
+            
+            y += 20
+            formattedtaxes.draw(at: CGPoint(x: 340, y: y))
+            formattedTaxesAmount.draw(at: CGPoint(x: 405, y: y))
+            
+            y += 20
+            formattedTotalPrice.draw(at: CGPoint(x: 340, y: y))
+            formattedTotalPriceAmount.draw(at: CGPoint(x: 405, y: y))
+            
+            y += 40
+            formattedPaymentSummaryTitle.draw(at: CGPoint(x: 210, y: y))
+            
+            y += 40
+            formattedCustomerName.draw(at: CGPoint(x: 100, y: y))
+            formattedCustomerEmail.draw(at: CGPoint(x: 270, y: y))
+            
+            y += 20
+            formattedPaymentType.draw(at: CGPoint(x: 100, y: y))
+            
+            
         }
+        print("LIST ---- \(foodList)")
         
         let smtpSession = MCOSMTPSession()
         smtpSession.hostname = "smtp.gmail.com"
@@ -161,11 +251,11 @@ class UserObjectModelData : ObservableObject {
             }
         }
         let builder = MCOMessageBuilder()
-        builder.header.to = [MCOAddress(displayName: "Charles", mailbox: "dhruvilpatel07@icloud.com")!]
-        builder.header.from = MCOAddress(displayName: "Xavier", mailbox: "dhruvilp263@gmail.com")
-        builder.header.subject = "Test Email"
-        builder.htmlBody="<p>Thank you for watching</p>"
-        builder.addAttachment(MCOAttachment(data: data, filename: "Bill.pdf"))
+        builder.header.to = [MCOAddress(displayName: cName, mailbox: cEmail)!]
+        builder.header.from = MCOAddress(displayName: "Guru Lukshmi", mailbox: "dhruvilp263@gmail.com")
+        builder.header.subject = "Payment receipt from Guru Lakshmi"
+        builder.htmlBody="<p>Thank you for your order.<br>Please see attachments for your Receipt.</p>"
+        builder.addAttachment(MCOAttachment(data: data, filename: "Receipt.pdf"))
        
         
         let rfc822Data = builder.data()
