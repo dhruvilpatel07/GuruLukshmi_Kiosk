@@ -27,7 +27,8 @@
 ![](Images/img7.png)
 ![](Images/img2.png)
 
-### Upon placing order it will rediret user to PayPal payment gateway to take payments (More payment options will be added in future)
+### Upon selecting payment type. For ex: customer selects PayPal it will rediret user to PayPal payment gateway to take payments (More payment options will be added in future)
+![](Images/img9.png)
 ![](Images/img3.png)
 ![](Images/img4.png)
 
