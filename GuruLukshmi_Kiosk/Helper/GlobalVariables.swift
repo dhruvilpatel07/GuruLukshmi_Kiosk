@@ -14,6 +14,8 @@ class GlobalVariables: ObservableObject {
     @Published var finalTotal = 0.0
     @Published var tax = 0.0
     @Published var didPaymentWentThrough = false
+    @Published var dummyOrderForPayment = Orders(isDineIn: false)
+    @Published var progressBarStatus = 0.25
     
     
 }
