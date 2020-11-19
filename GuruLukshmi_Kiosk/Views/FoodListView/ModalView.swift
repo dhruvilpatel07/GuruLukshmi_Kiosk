@@ -11,7 +11,8 @@ import SceneKit
 
 struct ModalView: View {
     // MARK: - Properties and Variables
-    let fade = Gradient(colors: [.clear ,Color.black, Color.clear])
+    let fade = Gradient(colors: [Color.black ,Color.black, Color.clear])
+    let fade1 = Gradient(colors: [Color.black, Color.clear])
     var itemStringArray = ["item", "items"]
     
     @Binding var showModal: Bool
@@ -29,18 +30,25 @@ struct ModalView: View {
             Color.newSecondaryColor.edgesIgnoringSafeArea(.all)
             VStack {
                 
+                if self.enviromentObj.food.foodName == "Plain Dosa"{
+                    SceneView(scene: SCNScene(named: "DosaARModel.usdz"), options: [ .autoenablesDefaultLighting, .allowsCameraControl])
+                        .frame(width: UIScreen.main.bounds.size.width ,height: 480)
+                        //.mask(LinearGradient(gradient: fade1, startPoint: .top, endPoint: .bottom))
+                }else{
+                    Image(self.enviromentObj.food.imgName).resizable()
+                        .frame(height: 350)
+                        .mask(LinearGradient(gradient: fade, startPoint: .top, endPoint: .bottom))
+                }
                 //Display food image
-                Image(self.enviromentObj.food.imgName).resizable()
-                    .frame(width: UIScreen.main.bounds.size.width ,height: 450)
-                    .mask(LinearGradient(gradient: fade, startPoint: .top, endPoint: .bottom))
-                //SceneView(scene: SCNScene(named: "DosaARModel.usdz"), options: [ .autoenablesDefaultLighting, .allowsCameraControl])
-                  //  .frame(width: UIScreen.main.bounds.size.width ,height: 480)
-                    //.mask(LinearGradient(gradient: fade, startPoint: .top, endPoint: .bottom))
+               
+                //
                 
                 //Display food name
                 Text(self.enviromentObj.food.foodName)
-                    .font(.system(size: 60, weight: Font.Weight.bold, design: Font.Design.rounded))
+                    .font(.system(size: 50, weight: Font.Weight.bold, design: Font.Design.rounded))
+                    .multilineTextAlignment(.center)
                     .foregroundColor(.newPrimaryColor)
+                    .frame(width: 500)
                 .offset(x: 0, y: -20)
                    .padding()
                 

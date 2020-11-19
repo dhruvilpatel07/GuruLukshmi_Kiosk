@@ -27,6 +27,9 @@ struct FoodListByCategory: View {
     @State var arrayOfListOfOrder = [ListOfOrder]()
     @State var index = 0
     
+    @State var selected = ""
+    @State var show = false
+    
     // MARK: - Body
     var body: some View {
         VStack {
@@ -40,7 +43,7 @@ struct FoodListByCategory: View {
                         NavigationLink(destination: CustomizeYourOwnDosa()) {
                             
                             HStack {
-                                Image("dosa").resizable()
+                                Image("appetizers").resizable()
                                     .mask(LinearGradient(gradient: fade, startPoint: .leading, endPoint: .trailing))
                                     .cornerRadius(10)
                                     .frame(width: 340, height: 200)
@@ -90,6 +93,7 @@ struct FoodListByCategory: View {
                 }
                 .padding(.top, 20)
                 
+                ZStack{
                 // MARK: - Cart Section
                 VStack {
                     ScrollView(.vertical, showsIndicators: false){
@@ -192,32 +196,18 @@ struct FoodListByCategory: View {
                         self.enviromentObj.finalTotal = (self.enviromentObj.subTotal * 0.13) + self.enviromentObj.subTotal
                         
                         if self.enviromentObj.foodInCart.count > 0{
+                            for order in self.enviromentObj.foodInCart{
+                                arrayOfListOfOrder.append(order)
+                            }
+                            //Setting up the array of order, subTotal and adding it to database
+                            var dummyOrder = Orders(isDineIn: self.model.isDineIn)
+                            // dummyOrder.isDineIn = self.model.isDineIn
+                            dummyOrder.orderSubTotal = self.enviromentObj.finalTotal
+                            dummyOrder.listOfOrder = self.arrayOfListOfOrder
+                            dummyOrder.tableNumber = self.model.tableNumber
+                            self.enviromentObj.dummyOrderForPayment = dummyOrder
                             
-                            //Taking payments through PayPal
-                            self.payments.PayNow(amount: self.enviromentObj.finalTotal, finished: { (success) -> Void in
-                                
-                                if success{
-                                    for order in self.enviromentObj.foodInCart{
-                                        arrayOfListOfOrder.append(order)
-                                    }
-                                    //Setting up the array of order, subTotal and adding it to database
-                                    var dummyOrder = Orders(isDineIn: self.model.isDineIn)
-                                    // dummyOrder.isDineIn = self.model.isDineIn
-                                    dummyOrder.orderSubTotal = self.enviromentObj.finalTotal
-                                    dummyOrder.listOfOrder = self.arrayOfListOfOrder
-                                    dummyOrder.tableNumber = self.model.tableNumber
-                                    self.db.addOrders(dummyOrder)
-                                    
-                                    //Sending Email Transaction Recors (Reciept)
-                                    self.model.sendEmail()
-
-                                    //Clearing out the cart after the order has been placed
-                                    self.enviromentObj.foodInCart.removeAll()
-                                    self.enviromentObj.subTotal = 0.0
-                                    print("Successfully added to database")// -> For debug purpose
-                                }
-                                
-                            })
+                            self.show.toggle()
    
                         }else{
                             self.showAlert = true
@@ -232,12 +222,24 @@ struct FoodListByCategory: View {
                     .alert(isPresented: $showAlert){
                         Alert(title: Text("Cart is Empty"), dismissButton: .default(Text("OK")))
                     }
+                    
+                  
+                    
                 }.frame(width: 350)
                 .background(Color.newAddToCartColot.opacity(0.1))
-                
+                    
+                VStack{
+                  Spacer()
+                    SelectPaymentMethodView(selected: self.$selected,show: self.$show,model: self.model, payments: self.payments ).offset(y: self.show ? (UIApplication.shared.windows.last?.safeAreaInsets.bottom)! + 15 : UIScreen.main.bounds.height)
+                        .animation(.default)
+                  
+                }
+            }
             }.edgesIgnoringSafeArea(.all)
             Spacer()
-        }
+        }.onAppear(perform: {
+            //self.model.sendEmail(foodList: self.enviromentObj.foodInCart)
+        })
         .padding(.top)
         .background(Color.newSecondaryColor)
         .edgesIgnoringSafeArea(.all)

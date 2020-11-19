@@ -41,6 +41,7 @@ struct CustomTextFieldView: View {
     }
 }
 
+
 struct CustomTextFieldView_Previews: PreviewProvider {
     static var previews: some View {
         CustomTextFieldView(image: "mail", placeHolder: "User", txt: .constant("hey"))
