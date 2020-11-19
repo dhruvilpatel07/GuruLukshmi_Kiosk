@@ -50,6 +50,8 @@ class PaymentGateway: UIViewController, ObservableObject, BTViewControllerPresen
                     let phone = tokenizedPayPalAccount.phone
                     print("Email: \(String(describing: email))\nFirst Name: \(String(describing: firstName))\nLast Name: \(String(describing: lastName))\nPhone: \(String(describing: phone))")
                     print(request.amount)
+                    print(tokenizedPayPalAccount.creditFinancing)
+                    
                     finished(true)
                 } else if let error = error {
                     // Handle error here...
