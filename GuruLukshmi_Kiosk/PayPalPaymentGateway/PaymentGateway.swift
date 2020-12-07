@@ -12,7 +12,7 @@ import SwiftUI
 
 /** #PayPal Payment Gateway
     - Taking amount from subTotal and charging it to customer through paypal */
-class PaymentGateway: UIViewController, ObservableObject, BTViewControllerPresentingDelegate, BTAppSwitchDelegate {
+final class PaymentGateway: UIViewController, ObservableObject, BTViewControllerPresentingDelegate, BTAppSwitchDelegate {
     
     var braintreeClient: BTAPIClient?
     
@@ -27,16 +27,16 @@ class PaymentGateway: UIViewController, ObservableObject, BTViewControllerPresen
     /// - Parameters:
     ///   - amount: the amount which needs to be charged
     ///   - finished: compelition handler which will make sure that customers have been charged before adding order to database
-    func PayNow(amount: Double, finished:@escaping (Bool) -> ()) {
+    public func PayNow(amount: Double, finished:@escaping (Bool) -> ()) {
         
         DispatchQueue.main.async {
             let payPalDriver = BTPayPalDriver(apiClient: self.braintreeClient!)
             payPalDriver.viewControllerPresentingDelegate = self
-            payPalDriver.appSwitchDelegate = self // Optional
+            payPalDriver.appSwitchDelegate = self 
             
             // Specify the transaction amount here.
             let request = BTPayPalRequest(amount: String(format: "%.2f", amount))
-            request.currencyCode = "CAD" // Optional; see BTPayPalRequest.h for more options
+            request.currencyCode = "CAD"
             request.displayName = "Guru Lakshmi"
             
             payPalDriver.requestOneTimePayment(request) { (tokenizedPayPalAccount, error) in
