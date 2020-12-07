@@ -11,7 +11,7 @@ import SceneKit
 
 struct ModalView: View {
     // MARK: - Properties and Variables
-    let fade = Gradient(colors: [Color.black ,Color.black, Color.clear])
+    let fade = Gradient(colors: [Color.clear ,Color.black, Color.black, Color.clear])
     let fade1 = Gradient(colors: [Color.black, Color.clear])
     var itemStringArray = ["item", "items"]
     
@@ -36,7 +36,8 @@ struct ModalView: View {
                         //.mask(LinearGradient(gradient: fade1, startPoint: .top, endPoint: .bottom))
                 }else{
                     Image(self.enviromentObj.food.imgName).resizable()
-                        .frame(height: 350)
+                        .frame(width: 500, height: 450)
+                        .mask(LinearGradient(gradient: fade, startPoint: .leading, endPoint: .trailing))
                         .mask(LinearGradient(gradient: fade, startPoint: .top, endPoint: .bottom))
                 }
                 //Display food image
@@ -103,7 +104,12 @@ struct ModalView: View {
                 Button(action: {
                     
                     //Appending the each oreder in-side of globalVariables foodInCart array
-                    self.enviromentObj.foodInCart.append(ListOfOrder(foodRefrence: self.enviromentObj.food, foodQuantity: self.counter))
+                    if self.additionalDetail != ""{
+                        self.enviromentObj.foodInCart.append(ListOfOrder(foodRefrence: self.enviromentObj.food, foodQuantity: self.counter, specialInstruction: self.additionalDetail))
+                    }else{
+                        self.enviromentObj.foodInCart.append(ListOfOrder(foodRefrence: self.enviromentObj.food, foodQuantity: self.counter))
+                    }
+                    
                     self.enviromentObj.subTotal += (Double(self.counter) * self.enviromentObj.food.foodPrice)
                     
                     

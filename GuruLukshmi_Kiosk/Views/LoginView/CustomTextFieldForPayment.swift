@@ -16,9 +16,9 @@ struct CustomTextFieldForPayment: View {
             
             Image(systemName: image)
                 //.font(.system(size: 30))
-                .foregroundColor(.white)
+                .foregroundColor(Color.init(UIColor.systemBackground))
                 .frame(width: 40, height: 40)
-                .background(Color.black)
+                .background(Color.init(UIColor.label))
                 .clipShape(Circle())
             
             ZStack{
@@ -26,7 +26,7 @@ struct CustomTextFieldForPayment: View {
             }
                 .padding(.horizontal)
                 .padding(.leading,35)
-                .foregroundColor(.black)
+                .foregroundColor(Color.init(UIColor.label))
                 .frame(height: 50)
                 .background(Color.white.opacity(0.2))
                 .clipShape(Capsule())

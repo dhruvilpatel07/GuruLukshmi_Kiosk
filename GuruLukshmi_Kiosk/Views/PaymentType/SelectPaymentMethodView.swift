@@ -14,15 +14,22 @@ struct SelectPaymentMethodView: View {
     @ObservedObject var db = DatabaseConnection()
     @ObservedObject var model : UserObjectModelData
     @ObservedObject var payments : PaymentGateway
+    @ObservedObject var validator = Validator()
+    
     @State var customerEmail = ""
     @State var customerName = ""
     @AppStorage("log_Table_Number") var tableNumber = 0
     var data = ["Credit/Debit Card","Apple Pay","PayPal","Cash"]
+    @State private var showAlert = false
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 20) {
             
             
-            Text("Enter Name/Email").font(.title).padding(.top)
+            Text("Enter Name/Email")
+                .font(.title)
+                .foregroundColor(Color.init(UIColor.label))
+                .padding(.top)
             
             VStack{
                 CustomTextFieldForPayment(image: "person", placeHolder: "Enter your name", txt: $customerName)
@@ -34,8 +41,11 @@ struct SelectPaymentMethodView: View {
             
             
             if self.customerName != "" && self.customerEmail != ""{
-            
-                Text("Select Payment Type").font(.title).padding(.top)
+                
+                Text("Select Payment Type")
+                    .font(.title)
+                    .foregroundColor(Color.init(UIColor.label))
+                    .padding(.top)
                 
                 ForEach(data,id: \.self){i in
                     
@@ -49,24 +59,21 @@ struct SelectPaymentMethodView: View {
                         
                         HStack{
                             
-                            Text(i)
+                            Text(i).foregroundColor(Color.init(UIColor.label))
                             
                             Spacer()
                             
                             ZStack{
                                 
-                                Circle().fill(self.selected == i ? Color.gray : Color.black.opacity(0.2)).frame(width: 18, height: 18)
+                                Circle().fill(self.selected == i ? Color.init(UIColor.secondaryLabel): Color.init(UIColor.secondaryLabel)).frame(width: 18, height: 18)
                                 
                                 if self.selected == i{
                                     
-                                    Circle().stroke(Color.red, lineWidth: 4).frame(width: 25, height: 25)
+                                    Circle().stroke(Color.green, lineWidth: 4).frame(width: 25, height: 25)
                                 }
                             }
                             
-                            
-                            
                         }.foregroundColor(.black)
-                        
                     }.padding(.top)
                     
                 }
@@ -90,37 +97,51 @@ struct SelectPaymentMethodView: View {
                 Spacer()
                 
                 Button(action: {
-                    if self.selected == "PayPal"{
-                        self.payments.PayNow(amount: self.enviromentObj.finalTotal) { (sucess) in
-                            if sucess{
-                                let newCode = UUID().uuidString.split(separator: "-")[1]
-                                self.enviromentObj.dummyOrderForPayment.cName = self.customerName
-                                self.enviromentObj.dummyOrderForPayment.cEmail = self.customerEmail
-                                self.enviromentObj.dummyOrderForPayment.orderedTimeInString = Date().localizedDescription
-                                self.enviromentObj.dummyOrderForPayment.orderId = String(newCode)
-                                self.enviromentObj.dummyOrderForPayment.tableNumber = self.tableNumber
-                                self.db.addOrders(self.enviromentObj.dummyOrderForPayment)
-                                
-                                //Sending Email Transaction Records (Reciept)
-                              
-                                
-                                self.model.sendEmail(foodList: self.enviromentObj.foodInCart, orderTotalAmount: self.enviromentObj.finalTotal, totalBeforeTaxes: self.enviromentObj.subTotal, orderID: String(newCode), cEmail: self.customerEmail, cName: self.customerName)
-
-                                //Clearing out the cart after the order has been placed
-                                self.enviromentObj.foodInCart.removeAll()
-                                self.enviromentObj.subTotal = 0.0
-                                print("Successfully added to database")// -> For debug purpose
-                                self.show.toggle()
+                    /// Checks if email is valid or not
+                    if self.validator.isValidEmail(customerEmail){
+                        
+                        /// check is payment is selected in PayPal then it takes payment
+                        if self.selected == "PayPal"{
+                            
+                            /// upon success full payment order will be addded to databse
+                            self.payments.PayNow(amount: self.enviromentObj.finalTotal) { (sucess) in
+                                if sucess{
+                                    let newCode = UUID().uuidString.split(separator: "-")[1]
+                                    self.enviromentObj.dummyOrderForPayment.cName = self.customerName
+                                    self.enviromentObj.dummyOrderForPayment.cEmail = self.customerEmail
+                                    self.enviromentObj.dummyOrderForPayment.orderedTimeInString = Date().localizedDescription
+                                    self.enviromentObj.dummyOrderForPayment.orderId = String(newCode)
+                                    self.enviromentObj.dummyOrderForPayment.tableNumber = self.tableNumber
+                                    self.db.addOrders(self.enviromentObj.dummyOrderForPayment)
+                                    //Sending Email Transaction Records (Reciept)
+                                    
+                                    
+                                    self.model.sendEmail(foodList: self.enviromentObj.foodInCart, orderTotalAmount: self.enviromentObj.finalTotal, totalBeforeTaxes: self.enviromentObj.subTotal, orderID: String(newCode), cEmail: self.customerEmail, cName: self.customerName)
+                                    
+                                    //Clearing out the cart after the order has been placed
+                                    self.enviromentObj.foodInCart.removeAll()
+                                    self.enviromentObj.subTotal = 0.0
+                                    print("Successfully added to database")// -> For debug purpose
+                                    self.customerName = ""
+                                    self.customerEmail = ""
+                                    self.selected = ""
+                                    self.show.toggle()
+                                }
                             }
+                        }else{
+                            self.show.toggle()
                         }
                     }else{
-                        self.show.toggle()
+                        self.showAlert.toggle()
                     }
                     
                 }) {
                     
-                    Text("Continue").padding(.vertical).padding(.horizontal,25).foregroundColor(.white)
+                    Text("Continue").padding(.vertical).padding(.horizontal,25).foregroundColor(Color.init(UIColor.label))
                     
+                }
+                .alert(isPresented: $showAlert){
+                    Alert(title: Text("Please enter valid email address"), dismissButton: .default(Text("OK")))
                 }
                 .background(
                     
@@ -128,7 +149,7 @@ struct SelectPaymentMethodView: View {
                         
                         LinearGradient(gradient: .init(colors: [Color.green,Color.newSecondaryColor]), startPoint: .leading, endPoint: .trailing) :
                         
-                        LinearGradient(gradient: .init(colors: [Color.black.opacity(0.2),Color.black.opacity(0.2)]), startPoint: .leading, endPoint: .trailing)
+                        LinearGradient(gradient: .init(colors: [Color.init(UIColor.secondarySystemBackground),Color.init(UIColor.secondarySystemBackground)]), startPoint: .leading, endPoint: .trailing)
                     
                 )
                 .clipShape(Capsule())
@@ -140,7 +161,7 @@ struct SelectPaymentMethodView: View {
         }.padding(.vertical)
         .padding(.horizontal,25)
         .padding(.bottom,(UIApplication.shared.windows.last?.safeAreaInsets.bottom)! + 15)
-        .background(Color.white)
+        .background(Color.init(UIColor.systemBackground))
         .cornerRadius(30)
     }
 }

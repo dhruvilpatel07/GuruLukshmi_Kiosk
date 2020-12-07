@@ -13,7 +13,7 @@ struct FoodListByCategory: View {
     let columns = [
         GridItem(.adaptive(minimum: 230))
     ]
-    let fade =  Gradient(colors: [Color.black, Color.clear])
+    let fade =  Gradient(colors: [Color.black, Color.black, Color.clear])
     var category : FoodCategory
     
     @EnvironmentObject var enviromentObj : GlobalVariables
@@ -53,7 +53,7 @@ struct FoodListByCategory: View {
                                         .font(.system(size: 30, weight: Font.Weight.medium, design: Font.Design.rounded))
                                         .multilineTextAlignment(.center)
                                     Text("- Staring from $9.99").font(.system(size: 15, weight: Font.Weight.medium, design: Font.Design.rounded))
-                                        .foregroundColor(.white)
+                                        .foregroundColor(Color.init(UIColor.label))
                                 }
                                 
                                 
@@ -99,7 +99,7 @@ struct FoodListByCategory: View {
                     ScrollView(.vertical, showsIndicators: false){
                         HStack {
                             Text("Your order").font(.system(size: 20, weight: Font.Weight.medium, design: Font.Design.rounded))
-                                .foregroundColor(.white)
+                                .foregroundColor(.init(UIColor.label))
                             
                             Spacer()
                             
@@ -107,79 +107,82 @@ struct FoodListByCategory: View {
                         .padding(.horizontal)
                         
                         // Fetching the order from enviromental objects
+                        
                         ForEach(self.enviromentObj.foodInCart, id: \.self) { order in
-                            HStack(alignment: .center, spacing: 25.0) {
-                                Image(order.foodRefrence.categoryImage).resizable()
-                                    .frame(width: 60, height: 60)
-                                    .cornerRadius(10)
-                                
-                                // MARK: - Edit Section
-                                /// Edit Section -> adding / subtracting  foodQuantity and  subTotal
-                                HStack(spacing: -1.0) {
-                                    Text("X  ").foregroundColor(.white)
-                                        .font(.system(size: 20, weight: Font.Weight.bold, design: Font.Design.rounded))
+                            VStack {
+                                HStack(alignment: .center, spacing: 25.0) {
+                                    Image(order.foodRefrence.imgName).resizable()
+                                        .frame(width: 60, height: 60)
+                                        .cornerRadius(10)
                                     
-                                    VStack(spacing: 2.0) {
-                                        
-                                        //Adding food quantity and increasing subTotal depending on quntity
-                                        Image(systemName: "arrow.up.circle.fill").foregroundColor(.green)
-                                            .onTapGesture{
-                                                self.index = self.enviromentObj.foodInCart.firstIndex(where: {$0 == order})!
-                                                self.enviromentObj.foodInCart[index].foodQuantity += 1
-                                                self.enviromentObj.subTotal += order.foodRefrence.foodPrice
-                                            }
-                                        
-                                        //Disaply quantity number
-                                        Text("\(order.foodQuantity)").foregroundColor(.white)
+                                    // MARK: - Edit Section
+                                    /// Edit Section -> adding / subtracting  foodQuantity and  subTotal
+                                    HStack(spacing: -1.0) {
+                                        Text("X  ").foregroundColor(.init(UIColor.label))
                                             .font(.system(size: 20, weight: Font.Weight.bold, design: Font.Design.rounded))
                                         
-                                        //Subtracting food quantity and decreasing subTotal depending on quntity
-                                        //addind condition to check if the order quantity isn't going into negative
-                                        Image(systemName: "arrow.down.circle.fill").foregroundColor(.red)
-                                            .onTapGesture{
-                                                self.index = self.enviromentObj.foodInCart.firstIndex(where: {$0 == order})!
-                                                self.enviromentObj.foodInCart[index].foodQuantity -= 1
-                                                if order.foodQuantity > 1 {
-                                                    self.enviromentObj.subTotal -= order.foodRefrence.foodPrice
+                                        VStack(spacing: 2.0) {
+                                            
+                                            //Adding food quantity and increasing subTotal depending on quntity
+                                            Image(systemName: "arrow.up.circle.fill").foregroundColor(.green)
+                                                .onTapGesture{
+                                                    self.index = self.enviromentObj.foodInCart.firstIndex(where: {$0 == order})!
+                                                    self.enviromentObj.foodInCart[index].foodQuantity += 1
+                                                    self.enviromentObj.subTotal += order.foodRefrence.foodPrice
                                                 }
-                                                if order.foodQuantity <= 1{
-                                                    self.enviromentObj.foodInCart[index].foodQuantity = 1
+                                            
+                                            //Disaply quantity number
+                                            Text("\(order.foodQuantity)").foregroundColor(.init(UIColor.label))
+                                                .font(.system(size: 20, weight: Font.Weight.bold, design: Font.Design.rounded))
+                                            
+                                            //Subtracting food quantity and decreasing subTotal depending on quntity
+                                            //addind condition to check if the order quantity isn't going into negative
+                                            Image(systemName: "arrow.down.circle.fill").foregroundColor(.red)
+                                                .onTapGesture{
+                                                    self.index = self.enviromentObj.foodInCart.firstIndex(where: {$0 == order})!
+                                                    self.enviromentObj.foodInCart[index].foodQuantity -= 1
+                                                    if order.foodQuantity > 1 {
+                                                        self.enviromentObj.subTotal -= order.foodRefrence.foodPrice
+                                                    }
+                                                    if order.foodQuantity <= 1{
+                                                        self.enviromentObj.foodInCart[index].foodQuantity = 1
+                                                    }
                                                 }
-                                            }
-                                    }
-                                    
-                                }
-                                
-                                //Displaying Food name and food price
-                                VStack(spacing: 5.0){
-                                    Text(order.foodRefrence.foodName).foregroundColor(.gray).font(.system(size: 20, weight: Font.Weight.medium, design: Font.Design.rounded))
-                                        .multilineTextAlignment(.center)
-                                    Text("$\(String(format: "%.2f" ,order.foodRefrence.foodPrice))").foregroundColor(.white).font(.system(size: 15, weight: Font.Weight.medium, design: Font.Design.rounded))
-                                    
-                                }.frame(width: 130)
-                                
-                                //Button to delete food from cart
-                                Image(systemName: "trash").foregroundColor(.red)
-                                    .onTapGesture {
-                                        //Find the first occurance of object in array and returns its index
-                                        self.index = self.enviromentObj.foodInCart.firstIndex(where: {$0 == order})!
+                                        }
                                         
-                                        //subtracting the total food price from subTotal by multiplying foodQuantity and foodPrice
-                                        self.enviromentObj.subTotal -= (Double(self.enviromentObj.foodInCart[index].foodQuantity) * self.enviromentObj.foodInCart[index].foodRefrence.foodPrice)
-                                        enviromentObj.foodInCart.remove(at: self.index)
                                     }
+                                    
+                                    //Displaying Food name and food price
+                                    VStack(spacing: 5.0){
+                                        Text(order.foodRefrence.foodName).foregroundColor(.init(UIColor.secondaryLabel)).font(.system(size: 20, weight: Font.Weight.medium, design: Font.Design.rounded))
+                                            .multilineTextAlignment(.center)
+                                        Text("$\(String(format: "%.2f" ,order.foodRefrence.foodPrice))").foregroundColor(.init(UIColor.label)).font(.system(size: 15, weight: Font.Weight.medium, design: Font.Design.rounded))
+                                        
+                                    }.frame(width: 130)
+                                    
+                                    //Button to delete food from cart
+                                    Image(systemName: "trash").foregroundColor(.red)
+                                        .onTapGesture {
+                                            //Find the first occurance of object in array and returns its index
+                                            self.index = self.enviromentObj.foodInCart.firstIndex(where: {$0 == order})!
+                                            //subtracting the total food price from subTotal by multiplying foodQuantity and foodPrice
+                                            self.enviromentObj.subTotal -= (Double(self.enviromentObj.foodInCart[index].foodQuantity) * self.enviromentObj.foodInCart[index].foodRefrence.foodPrice)
+                                            enviromentObj.foodInCart.remove(at: self.index)
+                                        }
+                                }
+                                Divider()
                             }
                         }
                         .padding(.top)
                     }
                     //Displaying Total
                     Text("Total $ \(String(format: "%.2f" ,self.enviromentObj.subTotal))")
-                        .foregroundColor(.white)
-                        .font(.system(size: 20, weight: Font.Weight.semibold, design: Font.Design.rounded))
+                        .foregroundColor(.init(UIColor.label))
+                        .font(.system(size: 25, weight: Font.Weight.semibold, design: Font.Design.rounded))
                     //Displaying Taxes
                     Text("Tax $ \(String(format: "%.2f" ,(self.enviromentObj.subTotal * 0.13)))")
-                        .foregroundColor(.white)
-                        .font(.system(size: 20, weight: Font.Weight.semibold, design: Font.Design.rounded))
+                        .foregroundColor(.init(UIColor.label))
+                        .font(.system(size: 25, weight: Font.Weight.semibold, design: Font.Design.rounded))
                     //Displaying/Setting  SubTotal
                     
                     Text("SubTotal $ \(String(format: "%.2f" ,(self.enviromentObj.subTotal * 0.13) + self.enviromentObj.subTotal))")
@@ -226,7 +229,7 @@ struct FoodListByCategory: View {
                   
                     
                 }.frame(width: 350)
-                .background(Color.newAddToCartColot.opacity(0.1))
+                .background(Color.init(UIColor.secondarySystemBackground))
                     
                 VStack{
                   Spacer()
@@ -237,11 +240,9 @@ struct FoodListByCategory: View {
             }
             }.edgesIgnoringSafeArea(.all)
             Spacer()
-        }.onAppear(perform: {
-            //self.model.sendEmail(foodList: self.enviromentObj.foodInCart)
-        })
+        }
         .padding(.top)
-        .background(Color.newSecondaryColor)
+        .background(Color.init(UIColor.systemFill))
         .edgesIgnoringSafeArea(.all)
     }
 }

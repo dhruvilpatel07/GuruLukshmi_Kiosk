@@ -17,7 +17,7 @@ struct ContentView: View {
     @StateObject var model = UserObjectModelData()
     @EnvironmentObject var enviromentObj : GlobalVariables
     @ObservedObject var payments : PaymentGateway
-    
+    @Environment(\.colorScheme) var colorScheme
     var body: some View {
         
         if status {
@@ -27,14 +27,19 @@ struct ContentView: View {
                 NavigationView{
                     
                     ZStack{
-                        Color.black.opacity(0.9).edgesIgnoringSafeArea(.all)
+                        
+                        if colorScheme == .dark {
+                            Color.init(UIColor.secondarySystemBackground).edgesIgnoringSafeArea(.all)
+                        }else{
+                            Color.black.opacity(0.9).edgesIgnoringSafeArea(.all)
+                        }
                         
                         VStack {
-                            Text("Menu").foregroundColor(.white)
+                            Text("Menu").foregroundColor(colorScheme == .dark ? .init(UIColor.label) : .white)
                                 .font(.largeTitle)
                                 .padding()
                             Button(action: model.checkLogoutPass, label: {
-                                Text("LogOut")
+                                Text("Logout")
                                     .foregroundColor(.orange)
                                     .fontWeight(.bold)
                             })
